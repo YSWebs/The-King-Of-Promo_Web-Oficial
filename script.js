@@ -22,4 +22,12 @@
 			}
 		}		
 	
+function cerrardivvideo(){
+	document.getElementById("divflotvideoview").style.display="none";
+document.getElementById("videoreproendiv").pause();
+}
+function openvideochrislebronprestame(){
+	setTimeout(() => {videoreproendiv.play();}, 1000);
+	document.getElementById("divflotvideoview").style.display="block";
 
+}

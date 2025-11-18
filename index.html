@@ -8,7 +8,17 @@
   <script src="script.js"></script>
 </head>
 <body>
-		<h1 class="h1title">The King Of Promo</h1>
+		<h1 class="h1title"></h1>
+	
+	<div id="divflotvideoview" style="display:none;"><center>
+		<input class="botoncerrardivvideo" type="button" onclick="cerrardivvideo()">
+		<h2>Titulo video</h2>
+		<video controls="" preload="" autoplay="" id="videoreproendiv">
+			<source type="video/mp4" src="Chris_Lebron_-_Préstame__Video_Lyrics____En_Honor_Al_Que_Ama(144p).mp4">
+		</video>
+		<p>Descripcion video</p>
+	</center></div>
+	
 	<div class="content">
 		<form>
 			<input type="text" id="q" placeholder="Buscar video..." onkeyup="search()">
@@ -21,12 +31,13 @@
 				</tr>
 			</thead>
 			<tbody id="the_table_body">
-				<tr>
+				<tr onclick="openvideochrislebronprestame()">
 					<td>
 						<img class="imgportadavideos" src="Chris Lebron - Prestame.jpg">
-						<br>Nombre video full
+						<br>
+						<h2>Chris Lebron - Préstame</h2>
 					</td>
-					<td>John</td>
+					<td>Chris_Lebron - Préstame Video_Lyrics En Honor Al Que Ama (144p)</td>
 				</tr>
 				<tr>
 					<td>2</td>

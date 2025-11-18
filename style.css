@@ -5,22 +5,68 @@ body{margin:0px;
 
 .h1title{
 	width:100%;
+	height:50px;
 	position:fixed;
 	margin-top:0px;
 	top:0px;
 	left:0px;
 	background-color:#000;
+	background-image:url(Portadah1.jpg);
+	background-size:80% 90%;
+	background-position:center center;
+	background-repeat:no-repeat;
 	color:#fff;
 	text-align:center;
 	padding:10px;
 	font-size:30px;
+	border:0px;
+}
+
+#divflotvideoview{
+	position:fixed;
+	margin-top:0px;
+	top:80px;
+	bottom:6px;
+	left:4px;
+	right:4px;
+	padding:12px;
+	background-color:#000;
+	border-radius:3px;
+	color:#fff;
+}
+
+#divflotvideoview .botoncerrardivvideo{
+	background-image:url(cancel_969212.png);
+	background-size:100% 100%;
+	border-radius:100%;
+	width:32px;
+	height:32px;
+	position: absolute;
+	right:5px;
+	top:5px;
+	border:1px solid gray;
+}
+
+#divflotvideoview video{
+	margin:0px;
+	width:98%;
+	border-radius:2px;
+}
+
+#divflotvideoview h2{
+	font-size:26px;
+}
+
+#divflotvideoview p{
+	font-size:14px;
+	color:#aaa;
 }
 
 .content{
 	background-color:#ddd;
 	padding:12px;
 	margin:12px;
-	margin-top:66px;
+	margin-top:100px;
 }
 
 	form #q{
@@ -29,13 +75,14 @@ body{margin:0px;
 		padding: 5px 0px;
 	}
 
-table{
+table{margin-top:5px;
 	max-width:100%;
 }
 
 table .imgportadavideos{
-	max-height:15%;
-	max-width:15%;
+	max-height:100%;
+	max-width:100%;
+	border-radius:5px;
 }
 
 
@@ -43,6 +90,19 @@ table .imgportadavideos{
 		width: 100%;
 		text-align:center;
 	}
+
+table th{
+	font-size:12px;
+	color:#444;
+}
+
+table td{
+	font-size:12px;
+}
+
+table td h1{
+	font-size:16px;
+}
 
 	table,
 	table tr,
