@@ -8,55 +8,97 @@
   <script src="script.js"></script>
 </head>
 <body>
-		<h1 class="h1title"></h1>
+		<h1 class="h1title">
+			<input class="botonmenu" type="button">
+		</h1>
+	<div>
+		<ul class="listalinkp">
+    <li style="margin-right: 20px;">Elemento 1</li>
+    <li style="margin-right: 20px;">Elemento 2</li>
+    <li>Elemento 3</li>
+</ul>
+	</div>
 	
 	<div id="divflotvideoview" style="display:none;"><center>
 		<input class="botoncerrardivvideo" type="button" onclick="cerrardivvideo()">
-		<h2>Titulo video</h2>
+		<h2 id="videotitle">Titulo video</h2>
 		<video controls="" preload="" autoplay="" id="videoreproendiv">
-			<source type="video/mp4" src="Chris_Lebron_-_Préstame__Video_Lyrics____En_Honor_Al_Que_Ama(144p).mp4">
+			<source id="srcvideoreproendiv" type="video/mp4" src="">
 		</video>
-		<p>Descripcion video</p>
+		<p id="videoinfo">Descripcion video</p>
 	</center></div>
 	
-	<div class="content">
+	<div class="content" id="contentdiv">
 		<form>
-			<input type="text" id="q" placeholder="Buscar video..." onkeyup="search()">
+			<input type="text" id="q" placeholder="Buscar..." onkeyup="search()">
 		</form>
+		<center>
 		<table id="tableid">
 			<thead>
 				<tr>
-					<th>Video</th>
-					<th>Descripción</th>
+					<th>Inicio</th>
 				</tr>
 			</thead>
 			<tbody id="the_table_body">
 				<tr onclick="openvideochrislebronprestame()">
-					<td>
-						<img class="imgportadavideos" src="Chris Lebron - Prestame.jpg">
-						<br>
+					<td>	
 						<h2>Chris Lebron - Préstame</h2>
+						<br>
+<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+    <source src="Chris_Lebron_-_Préstame__Video_Lyrics____En_Honor_Al_Que_Ama(144p).mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
+						<img class="imgportadavideos" src="Chris Lebron - Prestame.jpg">
+					</td></tr>
+				<tr onclick="openvideofiesta1()">
+					<td>
+						<h2>Fiesta en ...</h2>
+						<br>
+<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+    <source src="VID-20251118-WA0000.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
+<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+    <source src="VID-20251118-WA0000.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
+<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+    <source src="VID-20251118-WA0000.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
 					</td>
-					<td>Chris_Lebron - Préstame Video_Lyrics En Honor Al Que Ama (144p)</td>
 				</tr>
 				<tr>
 					<td>2</td>
-					<td>Yuniel</td>
 				</tr>
 				<tr>
-					<td>3</td>
 					<td>Maria</td>
 				</tr>
 				<tr>
-					<td>4</td>
 					<td>Hanna</td>
 				</tr>
 				<tr>
-					<td>5</td>
 					<td>Jack</td>
 				</tr>
 			</tbody>
-		</table>
+		</table></center>
 	</div>
+	
+	
+<script>
+    const videos = document.querySelectorAll('.videoiddivcontenttable');
+
+    videos.forEach(video => {
+        video.addEventListener('touchstart', function() {
+            this.play();
+        });
+
+        video.addEventListener('touchend', function() {
+            this.pause();
+//            this.currentTime = 0; // Opcional: reinicia el video al inicio
+        });
+    });
+</script>
+
 </body>
 </html>

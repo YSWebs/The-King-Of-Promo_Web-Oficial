@@ -1,6 +1,6 @@
 body{margin:0px;
 	padding:0px;
-	background-color:#fff;
+	background-color:#ddd;
 }
 
 .h1title{
@@ -12,8 +12,8 @@ body{margin:0px;
 	left:0px;
 	background-color:#000;
 	background-image:url(Portadah1.jpg);
-	background-size:80% 90%;
-	background-position:center center;
+	background-size:300px 70px;
+	background-position:1% center;
 	background-repeat:no-repeat;
 	color:#fff;
 	text-align:center;
@@ -21,11 +21,48 @@ body{margin:0px;
 	font-size:30px;
 	border:0px;
 }
+.h1title .botonmenu{
+	background-image:url('menu_80837.png');
+	background-size:90% 90%;
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-color:#111;
+	border-radius:6px;
+	width:40px;
+	height:40px;
+	border:0px solid #999;
+	position: absolute;
+	right:calc(0px + 40px);
+margin-top:5px;
+	transition:all 200ms linear;
+}
+.h1title .botonmenu:hover{
+	background-color:#555;
+}
+
+.listalinkp{
+	list-style-type: none;
+	position: fixed;
+	padding:6px; 
+	margin: 0; 
+	width:100%;
+	top:70px;
+	left:0px;
+	display: flex;
+	background-color:#333;
+	color:#fff;
+}
+ul, li{
+	margin:0px;
+	padding:0px;
+}
+
 
 #divflotvideoview{
+	overflow-x: auto;
 	position:fixed;
 	margin-top:0px;
-	top:80px;
+	top:76px;
 	bottom:6px;
 	left:4px;
 	right:4px;
@@ -33,6 +70,7 @@ body{margin:0px;
 	background-color:#000;
 	border-radius:3px;
 	color:#fff;
+	z-index:10;
 }
 
 #divflotvideoview .botoncerrardivvideo{
@@ -51,6 +89,7 @@ body{margin:0px;
 	margin:0px;
 	width:98%;
 	border-radius:2px;
+	display:inline-block;
 }
 
 #divflotvideoview h2{
@@ -63,26 +102,36 @@ body{margin:0px;
 }
 
 .content{
-	background-color:#ddd;
+	background-color:#fff;
 	padding:12px;
 	margin:12px;
-	margin-top:100px;
+	margin-top:120px;
+	border-radius:2px 2px 5px 5px;
 }
 
 	form #q{
-		width: 100%;
+		width: calc(100% - 60px);
 		text-align: center;
-		padding: 5px 0px;
+		padding: 5px 30px;
+		border-radius:5px;
+		border:1px solid gray;
+		background-image:url('ic-search_97602.png');
+		background-size:auto 70%;
+		background-repeat:no-repeat;
+		background-position:6px center;
+		font-size:14px;
 	}
 
 table{margin-top:5px;
 	max-width:100%;
 }
 
-table .imgportadavideos{
+table .imgportadavideos, table video{
 	max-height:100%;
-	max-width:100%;
+	max-width:140px;
+	width: 100%;
 	border-radius:5px;
+	display:inline-block;
 }
 
 
