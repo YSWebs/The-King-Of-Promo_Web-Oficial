@@ -34,19 +34,7 @@ function openvideodiv(){
 	setTimeout(() => {videoreproendiv.play();}, 100);
 	document.getElementById("divflotvideoview").style.display="block";
 }
-function pausarTodosLosVideos() {
-	setTimeout(() => {
 
-    const videos = document.querySelectorAll('.videoiddivcontenttable'); // Selecciona todos los videos
-    videos.forEach(video => {
-        video.pause(); // Pausa cada video
-        video.currentTime = 0; // Opcional: reinicia el video al inicio
-    });
-		}, 1000);
-}
-
-// Llama a la función cuando se hace clic en el botón
-document.getElementById('pausarButton').addEventListener('click', pausarTodosLosVideos);
 
 
 function openvideochrislebronprestame(){
