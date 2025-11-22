@@ -1,4 +1,6 @@
 
+
+
 		function search(){
 			var num_cols, display, input, filter, table_body, tr, td, i, txtValue;
 			num_cols = 1;
@@ -59,5 +61,10 @@ videotitle.innerHTML="fiesta 1";
 	videoinfo.innerHTML="Descripcion fiesta 1";
 	setTimeout(() => {openvideodiv();}, 100);
 }
-
+function openvideochamasvailando(){
+	videoreproendiv.src="VID-20251118-WA0001.mp4";
+videotitle.innerHTML="chamasvailando";
+	videoinfo.innerHTML="Descripcion vaile chamas";
+	setTimeout(() => {openvideodiv();}, 100);
+}
 

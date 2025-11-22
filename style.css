@@ -1,6 +1,7 @@
 body{margin:0px;
 	padding:0px;
-	background-color:#ddd;
+	background-color:#999;
+	color:#fff;
 }
 
 .h1title{
@@ -20,6 +21,9 @@ body{margin:0px;
 	padding:10px;
 	font-size:30px;
 	border:0px;
+	z-index:20;
+	box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.5);
+   
 }
 .h1title .botonmenu{
 	background-image:url('menu_80837.png');
@@ -40,10 +44,11 @@ margin-top:5px;
 	background-color:#555;
 }
 
+
 .listalinkp{
 	list-style-type: none;
 	position: fixed;
-	padding:6px; 
+	padding:0px; 
 	margin: 0; 
 	width:100%;
 	top:70px;
@@ -51,10 +56,16 @@ margin-top:5px;
 	display: flex;
 	background-color:#333;
 	color:#fff;
+	overflow-y: auto;
+	box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.5);
 }
-ul, li{
+.listalinkp a{
+	text-decoration:none;
+	color:#fff;
+}
+ul, li{color:#fff;
 	margin:0px;
-	padding:0px;
+	padding:15px 5px;
 }
 
 
@@ -102,11 +113,11 @@ ul, li{
 }
 
 .content{
-	background-color:#fff;
+	background-color:#444;
 	padding:12px;
 	margin:12px;
-	margin-top:120px;
-	border-radius:2px 2px 5px 5px;
+	margin-top:130px;
+	border-radius:5px;
 }
 
 	form #q{
@@ -119,16 +130,22 @@ ul, li{
 		background-size:auto 70%;
 		background-repeat:no-repeat;
 		background-position:6px center;
+		background-color:#222;
+		color:#fff;
 		font-size:14px;
+		transition:all 200ms linear;
 	}
 
-table{margin-top:5px;
-	max-width:100%;
+form #q:hover{
+		box-shadow: 0 0 6px 6px rgba(100, 100, 100, 0.7);
+
+	
 }
+
 
 table .imgportadavideos, table video{
 	max-height:100%;
-	max-width:140px;
+	max-width:150px;
 	width: 100%;
 	border-radius:5px;
 	display:inline-block;
@@ -138,18 +155,22 @@ table .imgportadavideos, table video{
 	table tr{
 		width: 100%;
 		text-align:center;
-	}
+		padding-bottom:10px;
+			}
 
 table th{
 	font-size:12px;
-	color:#444;
+	color:#fff;
 }
 
 table td{
 	font-size:12px;
+		padding-bottom:10px;
 }
 
-table td h1{
+table td h2{
+	margin: 0px;
+	padding: 0px;
 	font-size:16px;
 }
 
@@ -157,12 +178,19 @@ table td h1{
 	table tr,
 	table tr th,
 	table tr td{
-		border: 1px solid lightgray;
-		border-collapse: collapse;
+		border-radius:8px;
+		border-top:2px solid #88a;
+		border-left: 3px solid #77a;
+		border-right: 3px solid #77a;
+border-bottom: 10px solid #66a;
 	}
 
 	table tr th,
 	table tr td{
-		padding: 5px 15px;
+		padding: 5px 5px;
 	}
 
+table{margin-top:10px;
+	max-width:100%;
+	border:0px;
+}

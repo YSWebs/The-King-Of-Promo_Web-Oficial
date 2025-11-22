@@ -13,9 +13,11 @@
 		</h1>
 	<div>
 		<ul class="listalinkp">
-    <li style="margin-right: 20px;">Elemento 1</li>
-    <li style="margin-right: 20px;">Elemento 2</li>
-    <li>Elemento 3</li>
+    <li style="background-color:#55a;">Inicio</li>
+			<a href=""><li>Eventos</li></a>
+ <a href=""><li>Artistas</li></a>
+ <a href=""><li>Acerca de:</li></a>
+ <a href=""><li>Contactanos</li></a>
 </ul>
 	</div>
 	
@@ -44,26 +46,38 @@
 					<td>	
 						<h2>Chris Lebron - Préstame</h2>
 						<br>
-<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+<video class="videoiddivcontenttable" preload="metadata" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
     <source src="Chris_Lebron_-_Préstame__Video_Lyrics____En_Honor_Al_Que_Ama(144p).mp4" type="video/mp4">
     Tu navegador no soporta la etiqueta de video.
 </video>
 						<img class="imgportadavideos" src="Chris Lebron - Prestame.jpg">
+						<em>21/11/2025</em>
+						
 					</td></tr>
 				<tr onclick="openvideofiesta1()">
 					<td>
 						<h2>Fiesta en ...</h2>
 						<br>
-<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+<video preload="metadata" class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
     <source src="VID-20251118-WA0000.mp4" type="video/mp4">
     Tu navegador no soporta la etiqueta de video.
 </video>
-<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+<video preload="metadata" class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
     <source src="VID-20251118-WA0000.mp4" type="video/mp4">
     Tu navegador no soporta la etiqueta de video.
 </video>
-<video class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+<video preload="metadata" class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
     <source src="VID-20251118-WA0000.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
+					</td>
+				</tr>
+				<tr onclick="openvideochamasvailando()">
+					<td>
+						<h2>chamas bailando...</h2>
+						<br>
+<video preload="metadata" class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
+    <source src="VID-20251118-WA0001.mp4" type="video/mp4">
     Tu navegador no soporta la etiqueta de video.
 </video>
 					</td>
@@ -94,7 +108,7 @@
         });
 
         video.addEventListener('touchend', function() {
-            this.pause();
+        	setTimeout(() => {this.pause();}, 2000);
 //            this.currentTime = 0; // Opcional: reinicia el video al inicio
         });
     });
