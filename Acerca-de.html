@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Acerca de... The King Of Promo | Web Oficial</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+		<h1 class="h1title">
+			<input class="botonmenu" type="button">
+		</h1>
+	
+				<ul class="listalinkp">
+		<a href="index.html"><li>Inicio</li></a>
+			<a href="Próximos eventos.html">	<li>Proximos Eventos</li></a>
+		<a href="Artistas.html">	<li>Artistas</li></a>
+			<li style="background:#55a;">Acerca de:</li>
+ 		<a href="Contactanos.html">	<li>Contactanos</li></a>
+</ul>
+	
+	
+	<div id="infopagediv">
+		<h1 id="h1titleinfopage">Acerca de:</h1>
+		<p>Esta Web fue creada por <a href="">Yuniel Sánchez</a>.</p>
+	</div>
+	
+	<img src="Icontitle.jpeg" id="imglogotkopfooter">
+
+		<footer>
+		<input onclick="window.location='https://wa.me/+535 9654544/?text=Hola'" type="button" class="boyonfootersocial" style="background-image:url('whatsApp icon.png'); border-bottom-left-radius:3px;">
+		<input type="button" class="boyonfootersocial" style="background-image:url('Facebook icon.jpg');">
+		<input type="button" class="boyonfootersocial" style="background-image:url('Instagram icon.jpg');">
+		<br><br>	The King Of Promo
+	</footer>
+	
+<script>
+    const videos = document.querySelectorAll('.videoiddivcontenttable');
+
+    videos.forEach(video => {
+        video.addEventListener('touchstart', function() {
+            this.play();
+        });
+
+        video.addEventListener('touchend', function() {
+        	setTimeout(() => {this.pause();}, 3000);
+//            this.currentTime = 0; // Opcional: reinicia el video al inicio
+        });
+    });
+</script>
+
+</body>
+</html>
