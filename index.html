@@ -14,72 +14,27 @@
 	
 		<ul class="listalinkp">
     <li style="background-color:#55a;">Inicio</li>
-			<a href=""><li>Eventos</li></a>
- <a href=""><li>Artistas</li></a>
- <a href=""><li>Acerca de:</li></a>
- <a href=""><li>Contactanos ......</li></a>
+			<li>Proximos Eventos</li>
+ <li>Artistas</li>
+ <li>Acerca de:</li>
+ <li>Contactanos</li>
 </ul>
 	
 	
-	<div id="divflotvideoview" style="display:none;"><center>
-		<input class="botoncerrardivvideo" type="button" onclick="cerrardivvideo()">
-		<h2 id="videotitle">Titulo video</h2>
-		<video controls="" preload="" autoplay="" id="videoreproendiv">
-			<source id="srcvideoreproendiv" type="video/mp4" src="">
-		</video>
-		<p id="videoinfo">Descripcion video</p>
-	</center></div>
 	
-	<div class="content" id="contentdiv">
-		<iframe src="iframp.html" style=""></iframe>
-		<object data="iframp.html"></object>
-		<form>
-			<input type="text" id="q" placeholder="Buscar..." onkeyup="search()">
-		</form>
-		<center>
-		<table id="tableid">
-			<thead>
-				<tr>
-					<th>Inicio</th>
-				</tr>
-			</thead>
-			<tbody id="the_table_body">
-				<tr onclick="openvideofiesta1()">
-					<td>
-						<h2>Fiesta en ...</h2>
-						<br>
-<video preload="metadata" poster="Vistapreviavideos/Screenshot_20251122_143541_XPlayer - Video Player.jpg" class="videoiddivcontenttable" muted="">
-    <source src="VID-20251118-WA0000.mp4" type="video/mp4">
-    Tu navegador no soporta la etiqueta de video.
-</video>
-					</td>
-				</tr>
-				<tr onclick="openvideochamasvailando()">
-					<td>
-						<h2>chamas bailando...</h2>
-						<br>
-<video preload="metadata" class="videoiddivcontenttable" autoplay="" muted="" onloadstart="pausarTodosLosVideos()">
-    <source src="VID-20251118-WA0001.mp4" type="video/mp4">
-    Tu navegador no soporta la etiqueta de video.
-</video>
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>Maria</td>
-				</tr>
-				<tr>
-					<td>Hanna</td>
-				</tr>
-				<tr>
-					<td>Jack</td>
-				</tr>
-			</tbody>
-		</table></center>
+	
+	
+	<div id="infopagediv">
+		<h1 id="h1titleinfopage">Acerca de:</h1>
+		<p>hfj</p>
 	</div>
 	
+	<div id="contactpagediv">
+		<h1 id="h1titleinfopage">Contactanos</h1>
+		<p>krnrk</p>
+	</div>
+	
+	<object data="prueba.html"></object>	
 	<footer>
 		<input onclick="window.location='https://wa.me/+535 9654544/?text=Hola'" type="button" class="boyonfootersocial" style="background-image:url('whatsApp icon.png'); border-bottom-left-radius:3px;">
 		<input type="button" class="boyonfootersocial" style="background-image:url('Facebook icon.jpg');">
@@ -96,7 +51,7 @@
         });
 
         video.addEventListener('touchend', function() {
-        	setTimeout(() => {this.pause();}, 2000);
+        	setTimeout(() => {this.pause();}, 3000);
 //            this.currentTime = 0; // Opcional: reinicia el video al inicio
         });
     });
