@@ -3,6 +3,11 @@ body{margin:0px;
 	background-color:#999;
 	color:#fff;
 	font-family:arial;
+text-shadow:1px 3px 6px rgba(0,0,0,1);
+	}
+
+a{
+	text-decoration:none;
 }
 
 .h1title{
@@ -58,6 +63,25 @@ margin-top:5px;
 #infopagediv a{
 	color:#88f;
 }
+#infopagediv h2{
+	font-family: algerian;
+	text-align:center;
+	text-shadow:3px 5px 6px rgba(0,0,0,1);
+	
+}
+#infopagediv .botonredsocial{
+  width:50px;
+  height:50px;
+  background-color:black;
+  border:1px solid #00000088;
+  background-size:90% 90%;
+	background-repeat: no-repeat;
+	background-position:center center;
+  border-radius:15px;
+  margin-left:10px;
+	box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3);
+
+}
 
 #contactpagediv{
 	background-color:#444;
@@ -75,7 +99,7 @@ margin-top:5px;
 
 .listalinkp{
 	white-space: nowrap;
-	font-size:14px;
+	font-size:16px;
 	list-style-type: none;
 	position: fixed;
 	padding:0px; 
@@ -250,7 +274,6 @@ footer{
 	background-size:100% 100%;
 	border:0px;
 	box-shadow: 0 0 6px 6px rgba(100, 100, 100, 0.7);
-
 }
 
 .imgartistaperfil{
@@ -262,3 +285,14 @@ footer{
 #imglogotkopfooter{
 	width:100%;
 }
+
+.botonredsocialartista{
+	width:32px;
+	height:32px;
+	border-radius:10px;
+	border-radius: 100%;
+	background-color:#666;
+	background-size:100% 100%;
+	border:0px;
+	margin-left:5px;
+	}
