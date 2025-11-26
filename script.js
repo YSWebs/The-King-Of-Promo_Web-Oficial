@@ -32,7 +32,7 @@ document.getElementById("videoreproendiv").pause();
 	videoinfo.innerHTML="Descripción";
 }
 function openvideodiv(){
-	setTimeout(() => {videoreproendiv.play();}, 500);
+	if(videoreproendiv.style.display=="block"){videoreproendiv.play();}
 	document.getElementById("divflotvideoview").style.display="block";
 }
 
@@ -51,7 +51,7 @@ function P3(){
 	videoreproendiv.src="Publicaciones/P3v1.mp4";
 	videoreproendiv.style.display="block";
 videotitle.innerHTML="Los Ordara";
-	videoinfo.innerHTML="";
+	videoinfo.innerHTML="Bailarines";
 	setTimeout(() => {openvideodiv();}, 100);
 }
 
@@ -92,6 +92,34 @@ function P6(){
 	videoreproendiv.style.display="block";
 videotitle.innerHTML="Palo, sale pronto ???";
 	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function E3(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/E3i1.jpg";
+videotitle.innerHTML="";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function E4(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/E4i1.jpg";
+videotitle.innerHTML="";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+
+
+
+
+function P15(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/P15i3.jpg";
+videotitle.innerHTML="Contador de Dinero para Android";
+	videoinfo.innerHTML="Contador de Dinero:<br>Util para contar su dinero de manera facil.<br>Creado por Yuniel Sánchez<br><a href='https://yunielsanchez309-wq.github.io/YWebAPK/Contador_de_dinero.apk'>Descargar .apk</a>";
 	setTimeout(() => {openvideodiv();}, 100);
 }
 
