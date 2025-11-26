@@ -26,8 +26,10 @@
 function cerrardivvideo(){
 	document.getElementById("divflotvideoview").style.display="none";
 document.getElementById("videoreproendiv").pause();
+document.getElementById("videoreproendiv2").pause();
 	videoreproendiv.style.display="none";
-	img1divflotvideo.style.display="none";
+	videoreproendiv2.style.display="none";
+img1divflotvideo.style.display="none";
 	videotitle.innerHTML="Titulo";
 	videoinfo.innerHTML="Descripción";
 }
@@ -111,8 +113,37 @@ videotitle.innerHTML="";
 	setTimeout(() => {openvideodiv();}, 100);
 }
 
+function P7(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/P7i1.jpg";
+videotitle.innerHTML="*Ofertas de promoción por ⚜️ lista de difusión ⚜️*";
+	videoinfo.innerHTML="5x100📲Transferencia  💳:200💸<br>15x250📲Transferencia 💳:700 <br>25x360📲Transferencia 💳:1500<br>*Promo completa incluido canal estas más que quemados y  apoyo de dos promotores*📲 :420Trasferencia  💳:2000";
+	setTimeout(() => {openvideodiv();}, 100);
+}
 
+function P8(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/P8i1.jpg";
+videotitle.innerHTML="*Ofertas de promoción por ⚜️ separado y completa precios y forma de pago y froma de trabajo del proyecto*";
+	videoinfo.innerHTML=pinfop8.innerHTML;
+	setTimeout(() => {openvideodiv();}, 100);
+}
 
+function P9(){
+	videoreproendiv.src="Publicaciones/P9v1.mp4";
+videoreproendiv2.src="Publicaciones/P9v2.mp4";
+	videoreproendiv.style.display="block";
+videoreproendiv2.style.display="block";
+	videoreproendiv2.play()
+videotitle.innerHTML="*Los oldara 💨 🥵 rompen este Tema*";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+	setTimeout(() => {
+		videoreproendiv.pause();
+		videoreproendiv2.pause();
+	}, 1000);
+
+}
 
 
 function P15(){
