@@ -24,30 +24,65 @@
 		}		
 	
 function cerrardivvideo(){
-	contentdiv.style.display="block";
 	document.getElementById("divflotvideoview").style.display="none";
 document.getElementById("videoreproendiv").pause();
 	videoreproendiv.style.display="none";
-	img1divflotvideo.style.display="none"
+	img1divflotvideo.style.display="none";
 	videotitle.innerHTML="Titulo";
 	videoinfo.innerHTML="Descripción";
 }
 function openvideodiv(){
-	contentdiv.style.display="none";
-	setTimeout(() => {videoreproendiv.play();}, 100);
+	setTimeout(() => {videoreproendiv.play();}, 500);
 	document.getElementById("divflotvideoview").style.display="block";
 }
 
 
 
 
-function openvideofiesta1(){
-	videoreproendiv.src="VID-20251118-WA0000.mp4";
+function P2(){
+	videoreproendiv.src="Publicaciones/P2v1.mp4";
 	videoreproendiv.style.display="block";
-	img1divflotvideo.style.display="block";
-videotitle.innerHTML="fiesta 1";
-	videoinfo.innerHTML="Descripcion fiesta 1";
+videotitle.innerHTML="Proximo palo que se acerca ???";
+	videoinfo.innerHTML="";
 	setTimeout(() => {openvideodiv();}, 100);
 }
 
+function P3(){
+	videoreproendiv.src="Publicaciones/P3v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Los Ordara";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
 
+function P4(){
+	videoreproendiv.src="Publicaciones/P4v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="???";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function P5(){
+	videoreproendiv.src="Publicaciones/P5v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Los Ordara 💨 🥵 parten esta joya de tema con sus pasillos.";
+	videoinfo.innerHTML="Colaboracion de Bailarines";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function E1(){
+	videoreproendiv.src="Publicaciones/E1v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Party";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function E2(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/E2i1.jpg";
+videotitle.innerHTML="Party";
+	videoinfo.innerHTML="Otro de nuestros eventos.";
+	setTimeout(() => {openvideodiv();}, 100);
+}

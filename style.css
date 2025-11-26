@@ -58,6 +58,7 @@ margin-top:5px;
 	margin:12px;
 	margin-top:130px;
 	border-radius:5px;
+box-shadow: 0 0 3px 3px rgba(250, 250, 250, 0.3);
 }
 
 #infopagediv a{
@@ -70,8 +71,8 @@ margin-top:5px;
 	
 }
 #infopagediv .botonredsocial{
-  width:50px;
-  height:50px;
+  width:40px;
+  height:40px;
   background-color:black;
   border:1px solid #00000088;
   background-size:90% 90%;
@@ -89,6 +90,7 @@ margin-top:5px;
 	margin:12px;
 	margin-top:130px;
 	border-radius:5px;
+box-shadow: 0 0 3px 3px rgba(250, 250, 250, 0.3);
 }
 #h1titleinfopage{
 	width:100%;
@@ -99,7 +101,7 @@ margin-top:5px;
 
 .listalinkp{
 	white-space: nowrap;
-	font-size:16px;
+	font-size:13.5px;
 	list-style-type: none;
 	position: fixed;
 	padding:0px; 
@@ -113,11 +115,17 @@ margin-top:5px;
 	overflow-y: auto;
 	box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.5);
 	border-radius:0px 0px 10px 10px;
+	z-index:18;
 }
 .listalinkp a{
 	text-decoration:none;
 	color:#fff;
+	transition:all 500ms linear;
 }
+.listalinkp a:active{
+	background-color:blue;
+}
+
 li{color:#fff;
 	padding:15px 5px;
 }
@@ -127,15 +135,16 @@ li{color:#fff;
 	overflow-x: auto;
 	position:fixed;
 	margin-top:0px;
-	top:76px;
-	bottom:6px;
-	left:4px;
-	right:4px;
+	top:1px;
+	bottom:1px;
+	left:1px;
+	right:1px;
+	border:1px solid gray;
 	padding:12px;
 	background-color:#000;
 	border-radius:3px;
 	color:#fff;
-	z-index:10;
+	z-index:30;
 }
 
 #divflotvideoview .botoncerrardivvideo{
@@ -173,11 +182,15 @@ li{color:#fff;
 }
 
 .content{
+	max-width:600px;
 	background-color:#444;
 	padding:12px;
 	margin:12px;
 	margin-top:130px;
 	border-radius:5px;
+	box-shadow: 0 0 3px 3px rgba(250, 250, 250, 0.3);
+	z-index:10;
+
 }
 .content p{max-width:48%;
 	display:inline-block;
@@ -205,12 +218,14 @@ form #q:hover{
 }
 
 
-table .imgportadavideos, table video{
+table img, table video{
 	max-height:100%;
-	max-width:150px;
-	width: 100%;
+	max-width:250px;
+	width:100%;
 	border-radius:5px;
 	display:inline-block;
+	box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.5);
+
 }
 
 
@@ -284,6 +299,7 @@ footer{
 
 #imglogotkopfooter{
 	width:100%;
+	max-width:600px;
 }
 
 .botonredsocialartista{
