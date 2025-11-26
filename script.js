@@ -86,3 +86,12 @@ videotitle.innerHTML="Party";
 	videoinfo.innerHTML="Otro de nuestros eventos.";
 	setTimeout(() => {openvideodiv();}, 100);
 }
+
+function P6(){
+	videoreproendiv.src="Publicaciones/P6v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Palo, sale pronto ???";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
