@@ -1,6 +1,6 @@
 window.onload = function() {
     setTimeout(() => {
-   tableid.style.display="table" 
+   the_table_body.style.display="table" 
         
 }, 100);
     setTimeout(() => {
