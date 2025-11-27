@@ -29,7 +29,8 @@ text-shadow:1px 3px 6px rgba(0,0,0,1);
 
 #scrollToTopBtn:focus{
 	transform:rotate(360deg);
-	transition: all 500ms linear;
+	transition: all 900ms linear;
+	right: -100px;
 }
 
 
@@ -256,21 +257,34 @@ table img, table video{
 
 }
 
+table a{
+	color:#66f;
+}
 
 	table tr{
 		width: 100%;
 		text-align:center;
 		padding-bottom:10px;
-			}
+		}
+.tabletbodypublicaciones tr{
+		display:none;
+}
 
 table th{
 	font-size:14px;
 	color:#fff;
+	
 }
 
 table td{
 	font-size:12px;
 		padding-bottom:10px;
+	border-radius:8px;
+		border-top:2px solid #88f;
+		border-left: 3px solid #77e;
+		border-right: 3px solid #77e;
+border-bottom: 10px solid #66d;
+		
 }
 
 table td h2{
@@ -283,11 +297,7 @@ table td h2{
 	table tr,
 	table tr th,
 	table tr td{
-		border-radius:8px;
-		border-top:2px solid #88f;
-		border-left: 3px solid #77e;
-		border-right: 3px solid #77e;
-border-bottom: 10px solid #66d;
+		
 	}
 
 	table tr th,

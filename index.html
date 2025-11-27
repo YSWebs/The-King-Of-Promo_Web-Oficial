@@ -7,6 +7,7 @@
 	<link rel="icon" href="Iconos/copilot_image_1764088338235.ico">
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
+	<script src="scriptloadedtr.js"></script>
 </head>
 <body>
 		<h1 class="h1title">
@@ -16,7 +17,7 @@
 		<ul class="listalinkp">
  <li style="background:#55a;">Inicio</li>
 			<a href="Próximos eventos.html">	<li>Proximos Eventos</li></a>
-		<a href="Artistas.html">	<li>Artistas</li></a>
+		<a href="Artistas.html">	<li>Galeria de Creativos</li></a>
 			<a href="Acerca-de.html"><li>Acerca de:</li></a>
  		<a href="Contactanos.html">	<li>Contactanos</li></a>
 </ul>
@@ -49,7 +50,7 @@
 					<th>Publicaciones</th>
 				</tr>
 			</thead>
-			<tbody id="the_table_body">
+			<tbody id="the_table_body" class="tabletbodypublicaciones">
 				<tr onclick="P15()" style="display:none;">
 					<td>
 						<h2>Aplicación Android<br>Contador de Dinero</h2>
@@ -58,7 +59,7 @@
 						<img src="Publicaciones/P15i2.jpg">
 					</td>
 				</tr>
-				<tr onclick="P#()" style="display:none;">
+				<tr onview="P#()" style="display:none;">
 					<td>
 						<h2></h2>
 						<br><br>
@@ -67,7 +68,15 @@
 					</td>
 				</tr>
 				
-				<tr onclick="P9()">
+				<tr onclick="P10()" id="trp10">
+					<td>
+						<h2>¡Oferta unica!</h2>
+						<br><br>
+						<img src="Publicaciones/P10i1.jpeg">
+						<p id="pinfop10">Para entrar <a href="Contactanos.html">contactanos</a></p>
+					</td>
+				</tr>
+				<tr onclick="P9()" id="trp9">
 					<td>
 						<h2>*Los oldara 💨 🥵 rompen  este Tema*</h2>
 						<br><br>
@@ -82,7 +91,7 @@
 				</tr>
 				
 				
-				<tr onclick="P8()">
+				<tr onclick="P8()" id="trp8">
 					<td>
 						<h2>*Ofertas de promoción por ⚜️ separado y completa precios y forma de pago y froma de trabajo del proyecto*
  </h2>
@@ -115,7 +124,7 @@ Aseptamos dolares💵 y euros💶
 						</p>
 					</td>
 				</tr>
-				<tr onclick="P7()">
+				<tr onclick="P7()" id="trp7">
 					<td>
 						<h2>
 							*Ofertas de promoción por ⚜️ lista de difusión ⚜️*</h2>
@@ -134,7 +143,7 @@ Trasferencia  💳:2000
 						</p>
 					</td>
 				</tr>
-				<tr onclick="P6()">
+				<tr onclick="P6()" id="trp6">
 					<td>
 						<h2>Palo, sale pronto ???</h2>
 						<br>
@@ -143,7 +152,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P5()">
+				<tr onclick="P5()" id="trp5">
 					<td>
 						<h2>Los Ordara 💨 🥵 parten esta joya de tema con sus pasillos</h2>
 						<br>
@@ -152,7 +161,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P4()">
+				<tr onclick="P4()" id="trp4">
 					<td>
 						<h2>???</h2>
 						<br>
@@ -161,7 +170,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P3()">
+				<tr onclick="P3()" id="trp3">
 					<td>
 						<h2>Los Ordara</h2>
 						<br>
@@ -170,7 +179,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P2()">
+				<tr onclick="P2()" id="trp2">
 					<td>
 						<h2>Proximo palo que se acerca...</h2>
 						<br>
@@ -179,7 +188,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr>
+				<tr id="trp1">
 					<td>
 						<h2 style="background-image:url('Publicaciones/P1i3.gif'); background-size:100% 100%; height:50px;"><br>Inauguración de nuestra Web Oficial</h2><br>
 						<img src="Publicaciones/P1i1.jpg" style="max-width:96%; border-radius:6px;">

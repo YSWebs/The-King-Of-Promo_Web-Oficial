@@ -142,7 +142,22 @@ videotitle.innerHTML="*Los oldara 💨 🥵 rompen este Tema*";
 		videoreproendiv.pause();
 		videoreproendiv2.pause();
 	}, 1000);
+}
 
+function E6(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/E6i1.jpg";
+videotitle.innerHTML="*Sport Club Bar y 360°Show*";
+	videoinfo.innerHTML=pe6.innerHTML;
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function P10(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/P10i1.jpeg";
+videotitle.innerHTML="*Oferta*";
+	videoinfo.innerHTML=pinfop10.innerHTML;
+	setTimeout(() => {openvideodiv();}, 100);
 }
 
 

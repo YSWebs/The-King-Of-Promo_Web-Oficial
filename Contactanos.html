@@ -15,10 +15,20 @@
 		<ul class="listalinkp">
 		<a href="index.html"><li>Inicio</li></a>
 			<a href="Próximos eventos.html">	<li>Proximos Eventos</li></a>
-		<a href="Artistas.html">	<li>Artistas</li></a>
+		<a href="Artistas.html">	<li>Galeria de Creativos</li></a>
 			<a href="Acerca-de.html"><li>Acerca de:</li></a>
- 		<li style="background:#55a;">Contactanos</li>
+ 		<li id="contactanos" style="background:#55a;">Contactanos</li>
 </ul>
+<script>
+    // Esperamos a que el contenido se cargue completamente
+    window.onload = function() {
+        // Obtenemos el elemento "Contáctanos"
+        const contactanos = document.getElementById('contactanos');
+        
+        // Hacemos scroll hacia el elemento
+        contactanos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+</script>
 	
 	
     <button id="scrollToTopBtn"></button>
