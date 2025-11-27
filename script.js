@@ -154,7 +154,7 @@ videotitle.innerHTML="*Sport Club Bar y 360°Show*";
 
 function P10(){
 	img1divflotvideo.style.display="block";
-	img1divflotvideo.src="Publicaciones/P10i1.jpg";
+	img1divflotvideo.src="Publicaciones/P10i1.jpeg";
 videotitle.innerHTML="*Oferta*";
 	videoinfo.innerHTML=pinfop10.innerHTML;
 	setTimeout(() => {openvideodiv();}, 100);

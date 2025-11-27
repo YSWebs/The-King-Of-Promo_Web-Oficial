@@ -44,10 +44,15 @@
 			<input type="text" id="q" placeholder="Buscar..." onkeyup="search()">
 		</form>
 		<center>
-		<table id="tableid">
+		<table id="tableid" style="display:none;">
 			<thead>
 				<tr>
 					<th>Publicaciones</th>
+				</tr>
+				<tr id="trloadtabletext">
+					<td>
+						Cargando...
+					</td>
 				</tr>
 			</thead>
 			<tbody id="the_table_body" class="tabletbodypublicaciones">
