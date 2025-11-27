@@ -161,9 +161,9 @@ videotitle.innerHTML="*Oferta*";
 }
 
 
-function P15(){
+function P11(){
 	img1divflotvideo.style.display="block";
-	img1divflotvideo.src="Publicaciones/P15i3.jpg";
+	img1divflotvideo.src="Publicaciones/P11i3.jpg";
 videotitle.innerHTML="Contador de Dinero para Android";
 	videoinfo.innerHTML="Contador de Dinero:<br>Util para contar su dinero de manera facil.<br>Creado por Yuniel Sánchez<br><a href='https://yunielsanchez309-wq.github.io/YWebAPK/Contador_de_dinero.apk'>Descargar .apk</a>";
 	setTimeout(() => {openvideodiv();}, 100);
