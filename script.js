@@ -38,7 +38,20 @@ function openvideodiv(){
 	document.getElementById("divflotvideoview").style.display="block";
 }
 
+function openModal(img) {
+    const modal = document.getElementById("modal");
+    const modalImage = document.getElementById("modalImage");
+    const captionText = document.getElementById("caption");
 
+    modal.style.display = "block";
+    modalImage.src = img.src;
+    captionText.innerHTML = img.alt;
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
 
 
 function P2(){
@@ -108,6 +121,14 @@ videotitle.innerHTML="";
 function E4(){
 	img1divflotvideo.style.display="block";
 	img1divflotvideo.src="Publicaciones/E4i1.jpg";
+videotitle.innerHTML="";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function E5(){
+	img1divflotvideo.style.display="block";
+	img1divflotvideo.src="Publicaciones/E5i1.jpg";
 videotitle.innerHTML="";
 	videoinfo.innerHTML="";
 	setTimeout(() => {openvideodiv();}, 100);

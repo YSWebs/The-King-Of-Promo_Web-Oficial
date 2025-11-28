@@ -223,6 +223,7 @@ li{color:#fff;
 }
 .content p{max-width:90%;
 	display:inline-block;
+	
 }
 
 	form #q{
@@ -260,6 +261,7 @@ table img, table video{
 table a{
 	color:#66f;
 }
+
 
 	table tr{
 		width: 100%;
@@ -308,9 +310,49 @@ table{margin-top:10px;
 	width:100%;
 	}
 
-tablegalerycreatives tr td p img{
-	width:100px;
-	height:100px;
+.tablegalerycreatives tr td div img{
+	width:auto;
+	height:200px;
+	margin-left:3px;
+	margin-right:3px;
+	margin-top:6px;
+}
+
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#divgaleryimgs{
+		height:230px;
+	max-width:100%;
+	overflow-x:auto;
+	display:block;
 }
 
 footer{

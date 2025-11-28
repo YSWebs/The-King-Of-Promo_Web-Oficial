@@ -25,14 +25,12 @@
 	
 	<center>
 	
-	<div id="divflotvideoview" style="display:none;"><center>
-		<input class="botoncerrardivvideo" type="button" onclick="cerrardivvideo()">
-		<h2 id="videotitle">Titulo video</h2>
-		<video controls="" preload="" autoplay="" id="videoreproendiv">
-			<source id="srcvideoreproendiv" type="video/mp4" src="">
-		</video>
-		<p id="videoinfo">Descripcion video</p>
-	</center></div>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
 	
 	<div class="content" id="contentdiv">
 				<form>
@@ -59,30 +57,47 @@
 				</tr>
 				<tr>
 					<td>
-						<h2>Nombre</h2><br>
-						<img src="Icontitle.jpeg" class="imgartistaperfil">
+						<h2>YS-Code</h2><br>
+						<img onclick="openModal(this)" src="Imgperfilgalerycreatives/yunielsanchesperfil.jpeg" class="imgartistaperfil">
 						<p>
-							Categoria:--<br>
-							Nombre:----<br>
-							Edad:--<br>
-							Telefono:+53--------<br>
-							Direccion: -<br>
-							Redes sociales:<br>
-							<a href="">
-							<input type="button" class="botonredsocialartista" style="background-image:url('whatsApp icon.png'); border-bottom-left-radius:3px;">
-								</a>
-									<a href="">
-							<input type="button" class="botonredsocialartista" style="background-image:url('Facebook icon.jpg');">
-									</a>
+							Categoria: Programador (Paginas Web y Aplicaciones Android)<br>
+							Nombre:Yuniel Sánchez<br>
+							Edad:22<br>
+							Telefono:+53 51047336<br>
+							Direccion: Cuba, Ciego de Ávila, Baraguá, Gaspar, El Centro, Carretera via a 1ro de Enero, Casa #15.<br>
+							Redes sociales:<br><br>
+							<a href="https://wa.me/+5351047336/?text=Hola">
+        <input class="botonredsocialartista" type="button" style="border-bottom-left-radius:3px; background-image:url('whatsApp icon.png');"></a>
+      <a href="https://www.facebook.com/profile.php?id=100045202333511">
+        <input class="botonredsocialartista" type="button" style="background-image:url('Facebook icon.jpg');"></a>
+      <a href="https://www.instagram.com/yunielsm03?igsh=MTNtbG13OTB2cXRxag==">
+        <input class="botonredsocialartista" type="button" style="background-image:url('Instagram icon.jpg');"></a>
+      <a href="https://t.me/YunielSM">
+        <input class="botonredsocialartista" type="button" style="background-image:url('Telegram icon.jpg');"></a>
+      <a href="mailto:yunielsanchez309@gmail.com">
+        <input class="botonredsocialartista" type="button" style="background-image:url('Gmail icon.jpg');"></a>
+       
+						</p>
 							<br>
 							<hr>
-							<img src="">
-						</p>
+						
+						Galeria:
+						<div id="divgaleryimgs">
+							<img onclick="openModal(this)" src="Imgperfilgalerycreatives/yunielsanchezimg1.jpg">
+							<img onclick="openModal(this)" src="Imgperfilgalerycreatives/yunielsanchezimg2.jpg">
+							<img onclick="openModal(this)" src="Imgperfilgalerycreatives/yunielsanchezimg3.jpg">
+							<img onclick="openModal(this)" src="Imgperfilgalerycreatives/yunielsanchezimg4.jpg">
+							<img onclick="openModal(this)" src="Imgperfilgalerycreatives/yunielsanchezimg5.jpg">
+						</div>
+						<hr>
+						Enlaces externos:<br>
+						Pagina Web de aplicaciones android: <a href="https://yunielsanchez309-wq.github.io/YWebAPK/index.html">YSWeb.APK</a>
 					</td>
 				</tr>
 			</tbody>
 		</table></center>
 	</div>
+		
 	<img src="Icontitle.jpg" id="imglogotkopfooter">
 </center>
 	
