@@ -156,7 +156,7 @@ videoreproendiv2.src="Publicaciones/P9v2.mp4";
 	videoreproendiv.style.display="block";
 videoreproendiv2.style.display="block";
 	videoreproendiv2.play()
-videotitle.innerHTML="*Los oldara 💨 🥵 rompen este Tema*";
+videotitle.innerHTML="*Los Ordara 💨 🥵 rompen este Tema*";
 	videoinfo.innerHTML="";
 	setTimeout(() => {openvideodiv();}, 100);
 	setTimeout(() => {
@@ -190,3 +190,17 @@ videotitle.innerHTML="Contador de Dinero para Android";
 	setTimeout(() => {openvideodiv();}, 100);
 }
 
+function P12(){
+	videoreproendiv.src="Publicaciones/P12v1.mp4";
+videoreproendiv2.src="Publicaciones/P12v2.mp4";
+	videoreproendiv.style.display="block";
+videoreproendiv2.style.display="block";
+	videoreproendiv2.play()
+videotitle.innerHTML="* Los Ordara 💨 🥵 *";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+	setTimeout(() => {
+		videoreproendiv.pause();
+		videoreproendiv2.pause();
+	}, 1000);
+}
