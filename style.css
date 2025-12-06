@@ -4,7 +4,9 @@ body{margin:0px;
 	color:#fff;
 	font-family:arial;
 text-shadow:1px 3px 6px rgba(0,0,0,1);
-	}
+	background-image:url(Fondonieve.gif);
+	background-size:100%;
+}
 
 #scrollToTopBtn {
     position: fixed;
@@ -81,7 +83,7 @@ margin-top:5px;
 
 
 #infopagediv{
-	background-color:#444;
+	background-color:#444444aa;
 	padding:12px;
 	margin:12px;
 	margin-top:130px;
@@ -212,8 +214,8 @@ li{color:#fff;
 
 .content{
 	max-width:600px;
-	background-color:#444;
-	padding:12px;
+	background-color:#444444aa;
+		padding:12px;
 	margin:12px;
 	margin-top:130px;
 	border-radius:5px;
