@@ -4,8 +4,7 @@ body{margin:0px;
 	color:#fff;
 	font-family:arial;
 text-shadow:1px 3px 6px rgba(0,0,0,1);
-	background-image:url(Fondonieve.gif);
-	background-size:100%;
+		background-size:100%;
 }
 
 #scrollToTopBtn {
@@ -397,3 +396,7 @@ footer{
 	border:0px;
 	margin-left:5px;
 	}
+
+body{
+	background-image:url(Fondonieve.gif);
+}
