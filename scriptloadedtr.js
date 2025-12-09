@@ -6,8 +6,8 @@ window.onload = function() {
     setTimeout(() => {
    trloadtabletext.style.display="none"}, 1300);
 setTimeout(() => {
-   if(trloadtabletext.innerHTML=="Cargando..."){
-      trloadtabletext.innerHTML="Cargando...<br>Su conexion a Internet es lenta o inestable.<br>Por favor revise su conexion a internet."
+   if(trloadtabletext.style.display=="table"){
+      tdload.innerHTML="Cargando...<br>Su conexion a Internet es lenta o inestable.<br>Por favor revise su conexion a internet."
    }
-}, 13000);
+}, 12000);
 }
