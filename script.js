@@ -204,3 +204,42 @@ videotitle.innerHTML="* Los Ordara 💨 🥵 *";
 		videoreproendiv2.pause();
 	}, 1000);
 }
+
+function P13(){
+	videoreproendiv.src="Publicaciones/P13v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Los Ordara";
+	videoinfo.innerHTML="Se presentan en la José Martí Ciego de Ávila";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function P14(){
+	videoreproendiv.src="Publicaciones/P14v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Este tema saldrá dentro de poco a las redes estamos trabajando con lo más duro de la música cubana. Velito bufón";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function P15(){
+	videoreproendiv.src="Publicaciones/P15v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="Cantantes nuevos en Ciego de Ávila  saldrá dentro de poco";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+function P16(){
+	videoreproendiv.src="Publicaciones/P16v1.mp4";
+	videoreproendiv.style.display="block";
+videotitle.innerHTML="LoWa rompe las redes sociales";
+	videoinfo.innerHTML="";
+	setTimeout(() => {openvideodiv();}, 100);
+}
+
+
+
+
+
+
+
