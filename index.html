@@ -16,7 +16,7 @@
 	
 	<div id="menulateral" style="display:none;">
 		<center>
-    <!-- Contenido público -->
+			
     <div id="publicContent">
         <h1>Menú</h1>
         <button onclick="mostrarLogin()">Iniciar Sesión</button>
@@ -24,101 +24,6 @@
         <button onclick="mostrarRegistro()">Registrarse</button>
     </div>
     
-    
-    <script>
-        const API_URL = 'http://thekingofpromo.atwebpages.com/'; // Cambia por tu URL de Awardspace
-        
-        // Verificar sesión al cargar la página
-        document.addEventListener('DOMContentLoaded', verificarSesion);
-        
-        function verificarSesion() {
-            fetch(`${API_URL}/verificar_sesion.php`, {
-                credentials: 'include'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.loggedIn) {
-                    mostrarContenidoPrivado(data.usuario);
-                }
-            });
-        }
-        
-        function mostrarLogin() {
-        	registeruserlogindiv.style.display="block";
-        	menulateral.style.display="none"
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('registroForm').classList.add('hidden');
-        }
-        
-        function mostrarRegistro() {
-        	registeruserlogindiv.style.display="block";
-        	menulateral.style.display="none"
-            document.getElementById('registroForm').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-        }
-        
-        function ocultarFormularios() {
-        	registeruserlogindiv.style.display="none";
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registroForm').classList.add('hidden');
-        }
-        
-        function login() {
-            const usuario = document.getElementById('loginUsuario').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            fetch(`${API_URL}/login.php`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({usuario, password}),
-                credentials: 'include'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    mostrarContenidoPrivado(data.usuario);
-                } else {
-                    document.getElementById('loginError').textContent = data.message;
-                }
-            });
-        }
-        
-        function registrar() {
-            const usuario = document.getElementById('regUsuario').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-            
-            fetch(`${API_URL}/registro.php`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({usuario, email, password})
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Registro exitoso. Ahora puedes iniciar sesión.');
-                    mostrarLogin();
-                } else {
-                    document.getElementById('regError').textContent = data.message;
-                }
-            });
-        }
-        
-        function mostrarContenidoPrivado(usuario) {
-            document.getElementById('publicContent').classList.add('hidden');
-            document.getElementById('privateContent').classList.remove('hidden');
-            document.getElementById('userInfo').textContent = `Bienvenido, ${usuario}`;
-        }
-        
-        function logout() {
-            fetch(`${API_URL}/logout.php`, {
-                credentials: 'include'
-            })
-            .then(() => {
-                location.reload();
-            });
-        }
-    </script>
 			</center>
 	</div>
 	
@@ -433,6 +338,100 @@ Trasferencia  💳:2000
         });
     });
 </script>
+    <script>
+        const API_URL = 'http://thekingofpromo.atwebpages.com/'; // Cambia por tu URL de Awardspace
+        
+        // Verificar sesión al cargar la página
+        document.addEventListener('DOMContentLoaded', verificarSesion);
+        
+        function verificarSesion() {
+            fetch(`${API_URL}/verificar_sesion.php`, {
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    mostrarContenidoPrivado(data.usuario);
+                }
+            });
+        }
+        
+        function mostrarLogin() {
+        	registeruserlogindiv.style.display="block";
+        	menulateral.style.display="none"
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registroForm').classList.add('hidden');
+        }
+        
+        function mostrarRegistro() {
+        	registeruserlogindiv.style.display="block";
+        	menulateral.style.display="none"
+            document.getElementById('registroForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        }
+        
+        function ocultarFormularios() {
+        	registeruserlogindiv.style.display="none";
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registroForm').classList.add('hidden');
+        }
+        
+        function login() {
+            const usuario = document.getElementById('loginUsuario').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            fetch(`${API_URL}/login.php`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({usuario, password}),
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mostrarContenidoPrivado(data.usuario);
+                } else {
+                    document.getElementById('loginError').textContent = data.message;
+                }
+            });
+        }
+        
+        function registrar() {
+            const usuario = document.getElementById('regUsuario').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            
+            fetch(`${API_URL}/registro.php`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({usuario, email, password})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Registro exitoso. Ahora puedes iniciar sesión.');
+                    mostrarLogin();
+                } else {
+                    document.getElementById('regError').textContent = data.message;
+                }
+            });
+        }
+        
+        function mostrarContenidoPrivado(usuario) {
+            document.getElementById('publicContent').classList.add('hidden');
+            document.getElementById('privateContent').classList.remove('hidden');
+            document.getElementById('userInfo').textContent = `Bienvenido, ${usuario}`;
+        }
+        
+        function logout() {
+            fetch(`${API_URL}/logout.php`, {
+                credentials: 'include'
+            })
+            .then(() => {
+                location.reload();
+            });
+        }
+    </script>
 	<script src="scriptbotontopscroll.js"></script>
 	<script src="scriptloadedtr.js"></script>
 </body>
