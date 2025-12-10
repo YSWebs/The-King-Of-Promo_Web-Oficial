@@ -11,7 +11,7 @@
 </head>
 <body>
 		<h1 class="h1title">
-			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:none;">
+			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:block;">
 		</h1>
 	
 	<div id="menulateral" style="display:none;">
@@ -26,36 +26,25 @@
 	</div>
 	
 	<div id="registeruserlogindiv" style="display:none;"><center>
-		 
-        <!-- Formulario Login -->
+		 <!-- Login Form -->
         <div id="loginSection">
             <h2>Iniciar Sesión</h2>
-            <div class="form-group">
-                <input type="text" id="loginUsername" placeholder="Usuario o Email">
-            </div>
-            <div class="form-group">
-                <input type="password" id="loginPassword" placeholder="Contraseña">
-            </div>
+            <input type="text" id="loginUsername" placeholder="Usuario o Email">
+            <input type="password" id="loginPassword" placeholder="Contraseña">
             <button onclick="login()">Entrar</button>
-            <button onclick="showRegister()">Registrarse</button>
             <div id="loginMessage" class="error"></div>
+            <button class="switch" onclick="showRegister()">Crear Cuenta</button>
         </div>
         
-        <!-- Formulario Registro (oculto) -->
+        <!-- Register Form -->
         <div id="registerSection" class="hidden">
-            <h2>Registro</h2>
-            <div class="form-group">
-                <input type="text" id="regUsername" placeholder="Usuario (mín. 3 caracteres)">
-            </div>
-            <div class="form-group">
-                <input type="email" id="regEmail" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <input type="password" id="regPassword" placeholder="Contraseña (mín. 6 caracteres)">
-            </div>
-            <button onclick="register()">Crear Cuenta</button>
-            <button onclick="showLogin()">Volver a Login</button>
+            <h2>Crear Cuenta</h2>
+            <input type="text" id="regUsername" placeholder="Usuario">
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="password" id="regPassword" placeholder="Contraseña (mín. 6 caracteres)">
+            <button onclick="register()">Registrarse</button>
             <div id="registerMessage" class="error"></div>
+            <button class="switch" onclick="showLogin()">Volver a Login</button>
         </div>
     </center>
 	</div>
@@ -346,32 +335,18 @@ Trasferencia  💳:2000
         });
     });
 </script>
-    <script>
-        // CONFIGURACIÓN - CAMBIA ESTO
-        const API_BASE = 'http://thekingofpromo.atwebpages.com/'; // Tu URL de Awardspace
+	<script>
+        // CONFIGURACIÓN - ¡IMPORTANTE! CAMBIA ESTA URL
+        const API_BASE = 'http://thekingofpromo.atwebpages.com/'; // Tu URL de Awardspace HTTP
+        // Ejemplo: http://johndoe.awardspace.com
         
-        // Verificar sesión al cargar
-        document.addEventListener('DOMContentLoaded', checkAuth);
-        
-        async function checkAuth() {
-            try {
-                const response = await fetch(`${API_BASE}/verificar_sesion.php`, {
-                    method: 'GET',
-                    credentials: 'include' // IMPORTANTE: Envía cookies
-                });
-                
-                const data = await response.json();
-                
-                if (data.loggedIn) {
-                    showPrivateContent(data.user);
-                } else {
-                    showPublicContent();
-                }
-            } catch (error) {
-                console.error('Error verificando sesión:', error);
-                showPublicContent();
+        // Verificar si hay token al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('userToken');
+            if (token) {
+                verifyToken(token);
             }
-        }
+        });
         
         async function login() {
             const username = document.getElementById('loginUsername').value;
@@ -388,20 +363,23 @@ Trasferencia  💳:2000
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ username, password }),
-                    credentials: 'include' // IMPORTANTE
+                    body: JSON.stringify({ username, password })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    showPrivateContent(data.user);
+                    // Guardar token en localStorage
+                    localStorage.setItem('userToken', data.token);
+                    localStorage.setItem('userData', JSON.stringify(data.user));
+                    
+                    showUserSection(data.user);
                 } else {
                     showMessage('loginMessage', data.message, 'error');
                 }
             } catch (error) {
-                console.error('Error en login:', error);
-                showMessage('loginMessage', 'Error de conexión', 'error');
+                console.error('Error:', error);
+                showMessage('loginMessage', 'Error de conexión con el servidor', 'error');
             }
         }
         
@@ -411,17 +389,12 @@ Trasferencia  💳:2000
             const password = document.getElementById('regPassword').value;
             
             if (!username || !email || !password) {
-                showMessage('registerMessage', 'Por favor completa todos los campos', 'error');
-                return;
-            }
-            
-            if (username.length < 3) {
-                showMessage('registerMessage', 'Usuario mínimo 3 caracteres', 'error');
+                showMessage('registerMessage', 'Todos los campos son obligatorios', 'error');
                 return;
             }
             
             if (password.length < 6) {
-                showMessage('registerMessage', 'Contraseña mínimo 6 caracteres', 'error');
+                showMessage('registerMessage', 'La contraseña debe tener al menos 6 caracteres', 'error');
                 return;
             }
             
@@ -431,62 +404,79 @@ Trasferencia  💳:2000
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ username, email, password }),
-                    credentials: 'include'
+                    body: JSON.stringify({ username, email, password })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    showPrivateContent(data.user);
+                    // Guardar token y datos
+                    localStorage.setItem('userToken', data.token);
+                    localStorage.setItem('userData', JSON.stringify(data.user));
+                    
+                    showUserSection(data.user);
                 } else {
-                    if (data.errors) {
-                        showMessage('registerMessage', data.errors.join(', '), 'error');
-                    } else {
-                        showMessage('registerMessage', data.message, 'error');
-                    }
+                    showMessage('registerMessage', data.message, 'error');
                 }
             } catch (error) {
-                console.error('Error en registro:', error);
-                showMessage('registerMessage', 'Error de conexión', 'error');
+                console.error('Error:', error);
+                showMessage('registerMessage', 'Error de conexión con el servidor', 'error');
             }
         }
         
-        async function logout() {
+        async function verifyToken(token) {
             try {
-                await fetch(`${API_BASE}/logout.php`, {
-                    credentials: 'include'
+                const response = await fetch(`${API_BASE}/verificar_token.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token })
                 });
-                location.reload();
+                
+                const data = await response.json();
+                
+                if (data.valid) {
+                    showUserSection(data.user);
+                } else {
+                    // Token inválido, limpiar localStorage
+                    localStorage.removeItem('userToken');
+                    localStorage.removeItem('userData');
+                    showLogin();
+                }
             } catch (error) {
-                console.error('Error en logout:', error);
+                console.error('Error verificando token:', error);
+                showLogin();
             }
         }
         
-        function showPrivateContent(user) {
-            document.getElementById('publicContent').classList.add('hidden');
-            document.getElementById('privateContent').classList.remove('hidden');
+        function showUserSection(user) {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('userSection').classList.remove('hidden');
             
-            document.getElementById('userDisplayName').textContent = user.username;
+            document.getElementById('userName').textContent = user.username;
             document.getElementById('userEmail').textContent = user.email;
-            document.getElementById('userId').textContent = user.id;
         }
         
-        function showPublicContent() {
-            document.getElementById('publicContent').classList.remove('hidden');
-            document.getElementById('privateContent').classList.add('hidden');
+        function showLogin() {
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('userSection').classList.add('hidden');
+            clearMessages();
         }
         
         function showRegister() {
             document.getElementById('loginSection').classList.add('hidden');
             document.getElementById('registerSection').classList.remove('hidden');
+            document.getElementById('userSection').classList.add('hidden');
             clearMessages();
         }
         
-        function showLogin() {
-            document.getElementById('registerSection').classList.add('hidden');
-            document.getElementById('loginSection').classList.remove('hidden');
-            clearMessages();
+        function logout() {
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userData');
+            showLogin();
         }
         
         function showMessage(elementId, message, type) {
@@ -499,6 +489,9 @@ Trasferencia  💳:2000
             document.getElementById('loginMessage').textContent = '';
             document.getElementById('registerMessage').textContent = '';
         }
+        
+        // Para depuración - ver la URL de la API
+        console.log('URL de API:', API_BASE);
     </script>
 	<script src="scriptbotontopscroll.js"></script>
 	<script src="scriptloadedtr.js"></script>
