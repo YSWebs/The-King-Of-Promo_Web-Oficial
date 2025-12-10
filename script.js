@@ -1,3 +1,12 @@
+function mostrarLogin(){
+	if(registeruserlogindiv.style.display=="block"){
+		registeruserlogindiv.style.display="none"
+	}
+	else{registeruserlogindiv.style.display="block"
+		menulateral.style.display="none"
+	}
+}
+
 function openclosemenulat(){
 	if(menulateral.style.display=="block")
 	{menulateral.style.display="none"}

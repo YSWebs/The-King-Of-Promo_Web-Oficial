@@ -11,7 +11,7 @@
 </head>
 <body>
 		<h1 class="h1title">
-			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:none;">
+			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:block;">
 		</h1>
 	
 	<div id="menulateral" style="display:none;">
@@ -19,35 +19,44 @@
 			
     <div id="publicContent">
         <h1>Menú</h1>
-        <button onclick="mostrarLogin()">Iniciar Sesión</button>
-    	<br>
-        <button onclick="mostrarRegistro()">Registrarse</button>
+        <button onclick="mostrarLogin()">Iniciar Sesión o Registrarse</button>
     </div>
     
 			</center>
 	</div>
 	
 	<div id="registeruserlogindiv" style="display:none;"><center>
-		 <!-- Formulario de Login (oculto inicialmente) -->
-    <div id="loginForm" class="hidden">
-        <h2>Iniciar Sesión</h2>
-        <input type="text" id="loginUsuario" placeholder="Usuario o Email"><br>
-        <input type="password" id="loginPassword" placeholder="Contraseña"><br>
-        <button onclick="login()">Entrar</button>
-        <button onclick="ocultarFormularios()">Cancelar</button><br>
-        <div id="loginError" style="color: red;"></div>
-    </div>
-    
-    <!-- Formulario de Registro (oculto inicialmente) -->
-    <div id="registroForm" class="hidden">
-        <h2>Registro</h2>
-        <input type="text" id="regUsuario" placeholder="Usuario"><br>
-        <input type="email" id="regEmail" placeholder="Email"><br>
-        <input type="password" id="regPassword" placeholder="Contraseña"><br>
-        <button onclick="registrar()">Registrarse</button>
-        <button onclick="ocultarFormularios()">Cancelar</button><br>
-        <div id="regError" style="color: red;"></div>
-    </div>
+		 
+        <!-- Formulario Login -->
+        <div id="loginSection">
+            <h2>Iniciar Sesión</h2>
+            <div class="form-group">
+                <input type="text" id="loginUsername" placeholder="Usuario o Email">
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Contraseña">
+            </div>
+            <button onclick="login()">Entrar</button>
+            <button onclick="showRegister()">Registrarse</button>
+            <div id="loginMessage" class="error"></div>
+        </div>
+        
+        <!-- Formulario Registro (oculto) -->
+        <div id="registerSection" class="hidden">
+            <h2>Registro</h2>
+            <div class="form-group">
+                <input type="text" id="regUsername" placeholder="Usuario (mín. 3 caracteres)">
+            </div>
+            <div class="form-group">
+                <input type="email" id="regEmail" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" id="regPassword" placeholder="Contraseña (mín. 6 caracteres)">
+            </div>
+            <button onclick="register()">Crear Cuenta</button>
+            <button onclick="showLogin()">Volver a Login</button>
+            <div id="registerMessage" class="error"></div>
+        </div>
     </center>
 	</div>
 	
@@ -298,12 +307,11 @@ Trasferencia  💳:2000
 						<input type="button" style="display:none;" class="botonvermaspub" id="botonverpubdown1" onclick="verpubdown1()" value="Ver mas Publicaciones">
 		</center>
    
-    <!-- Contenido para usuarios logueados -->
+    <!-- Contenido Privado (oculto inicialmente) -->
     <div id="privateContent" class="hidden">
-        <div id="userInfo"></div>
-    	En desarrollo...
-        <h2>Comentar</h2>
-        <p>Este contenido solo es visible para usuarios registrados.</p>
+        <h1>Bienvenido, <span id="userDisplayName"></span>!</h1>
+        <p>Email: <span id="userEmail"></span></p>
+        <p>ID: <span id="userId"></span></p>
         <button onclick="logout()">Cerrar Sesión</button>
     </div>
 	</div>
@@ -339,97 +347,157 @@ Trasferencia  💳:2000
     });
 </script>
     <script>
-        const API_URL = 'http://thekingofpromo.atwebpages.com/'; // Cambia por tu URL de Awardspace
+        // CONFIGURACIÓN - CAMBIA ESTO
+        const API_BASE = 'https://http://thekingofpromo.atwebpages.com/'; // Tu URL de Awardspace
         
-        // Verificar sesión al cargar la página
-        document.addEventListener('DOMContentLoaded', verificarSesion);
+        // Verificar sesión al cargar
+        document.addEventListener('DOMContentLoaded', checkAuth);
         
-        function verificarSesion() {
-            fetch(`${API_URL}/verificar_sesion.php`, {
-                credentials: 'include'
-            })
-            .then(response => response.json())
-            .then(data => {
+        async function checkAuth() {
+            try {
+                const response = await fetch(`${API_BASE}/verificar_sesion.php`, {
+                    method: 'GET',
+                    credentials: 'include' // IMPORTANTE: Envía cookies
+                });
+                
+                const data = await response.json();
+                
                 if (data.loggedIn) {
-                    mostrarContenidoPrivado(data.usuario);
+                    showPrivateContent(data.user);
+                } else {
+                    showPublicContent();
                 }
-            });
+            } catch (error) {
+                console.error('Error verificando sesión:', error);
+                showPublicContent();
+            }
         }
         
-        function mostrarLogin() {
-        	registeruserlogindiv.style.display="block";
-        	menulateral.style.display="none"
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('registroForm').classList.add('hidden');
-        }
-        
-        function mostrarRegistro() {
-        	registeruserlogindiv.style.display="block";
-        	menulateral.style.display="none"
-            document.getElementById('registroForm').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-        }
-        
-        function ocultarFormularios() {
-        	registeruserlogindiv.style.display="none";
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registroForm').classList.add('hidden');
-        }
-        
-        function login() {
-            const usuario = document.getElementById('loginUsuario').value;
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
             
-            fetch(`${API_URL}/login.php`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({usuario, password}),
-                credentials: 'include'
-            })
-            .then(response => response.json())
-            .then(data => {
+            if (!username || !password) {
+                showMessage('loginMessage', 'Por favor completa todos los campos', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/login.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password }),
+                    credentials: 'include' // IMPORTANTE
+                });
+                
+                const data = await response.json();
+                
                 if (data.success) {
-                    mostrarContenidoPrivado(data.usuario);
+                    showPrivateContent(data.user);
                 } else {
-                    document.getElementById('loginError').textContent = data.message;
+                    showMessage('loginMessage', data.message, 'error');
                 }
-            });
+            } catch (error) {
+                console.error('Error en login:', error);
+                showMessage('loginMessage', 'Error de conexión', 'error');
+            }
         }
         
-        function registrar() {
-            const usuario = document.getElementById('regUsuario').value;
+        async function register() {
+            const username = document.getElementById('regUsername').value;
             const email = document.getElementById('regEmail').value;
             const password = document.getElementById('regPassword').value;
             
-            fetch(`${API_URL}/registro.php`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({usuario, email, password})
-            })
-            .then(response => response.json())
-            .then(data => {
+            if (!username || !email || !password) {
+                showMessage('registerMessage', 'Por favor completa todos los campos', 'error');
+                return;
+            }
+            
+            if (username.length < 3) {
+                showMessage('registerMessage', 'Usuario mínimo 3 caracteres', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showMessage('registerMessage', 'Contraseña mínimo 6 caracteres', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/registro.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password }),
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
                 if (data.success) {
-                    alert('Registro exitoso. Ahora puedes iniciar sesión.');
-                    mostrarLogin();
+                    showPrivateContent(data.user);
                 } else {
-                    document.getElementById('regError').textContent = data.message;
+                    if (data.errors) {
+                        showMessage('registerMessage', data.errors.join(', '), 'error');
+                    } else {
+                        showMessage('registerMessage', data.message, 'error');
+                    }
                 }
-            });
+            } catch (error) {
+                console.error('Error en registro:', error);
+                showMessage('registerMessage', 'Error de conexión', 'error');
+            }
         }
         
-        function mostrarContenidoPrivado(usuario) {
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/logout.php`, {
+                    credentials: 'include'
+                });
+                location.reload();
+            } catch (error) {
+                console.error('Error en logout:', error);
+            }
+        }
+        
+        function showPrivateContent(user) {
             document.getElementById('publicContent').classList.add('hidden');
             document.getElementById('privateContent').classList.remove('hidden');
-            document.getElementById('userInfo').textContent = `Bienvenido, ${usuario}`;
+            
+            document.getElementById('userDisplayName').textContent = user.username;
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('userId').textContent = user.id;
         }
         
-        function logout() {
-            fetch(`${API_URL}/logout.php`, {
-                credentials: 'include'
-            })
-            .then(() => {
-                location.reload();
-            });
+        function showPublicContent() {
+            document.getElementById('publicContent').classList.remove('hidden');
+            document.getElementById('privateContent').classList.add('hidden');
+        }
+        
+        function showRegister() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('registerSection').classList.remove('hidden');
+            clearMessages();
+        }
+        
+        function showLogin() {
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+            clearMessages();
+        }
+        
+        function showMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = type;
+        }
+        
+        function clearMessages() {
+            document.getElementById('loginMessage').textContent = '';
+            document.getElementById('registerMessage').textContent = '';
         }
     </script>
 	<script src="scriptbotontopscroll.js"></script>
