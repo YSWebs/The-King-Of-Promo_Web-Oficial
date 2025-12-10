@@ -1,4 +1,10 @@
-
+function openclosemenulat(){
+	if(menulateral.style.display=="block")
+	{menulateral.style.display="none"}
+	else{menulateral.style.display="block"}
+	
+        	registeruserlogindiv.style.display="none";
+}
         
 		function search(){
 			var num_cols, display, input, filter, table_body, tr, td, i, txtValue;
@@ -181,6 +187,18 @@ videotitle.innerHTML="*Oferta*";
 	setTimeout(() => {openvideodiv();}, 100);
 }
 
+function verpubdown1(){
+	trp1.style.display="table"
+	trp2.style.display="table"
+	trp3.style.display="table"
+	trp4.style.display="table"
+	trp5.style.display="table"
+	trp6.style.display="table"
+	trp7.style.display="table"
+	trp8.style.display="table"
+	trp9.style.display="table"
+	trp10.style.display="table"
+}
 
 function P11(){
 	img1divflotvideo.style.display="block";

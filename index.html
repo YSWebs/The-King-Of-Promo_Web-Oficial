@@ -11,8 +11,140 @@
 </head>
 <body>
 		<h1 class="h1title">
-			<input class="botonmenu" type="button">
+			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:block;">
 		</h1>
+	
+	<div id="menulateral" style="display:none;">
+		<center>
+    <!-- Contenido público -->
+    <div id="publicContent">
+        <h1>Menú</h1>
+        <button onclick="mostrarLogin()">Iniciar Sesión</button>
+    	<br>
+        <button onclick="mostrarRegistro()">Registrarse</button>
+    </div>
+    
+    
+    <script>
+        const API_URL = 'https://tuawardspace.awardspace.net'; // Cambia por tu URL de Awardspace
+        
+        // Verificar sesión al cargar la página
+        document.addEventListener('DOMContentLoaded', verificarSesion);
+        
+        function verificarSesion() {
+            fetch(`${API_URL}/verificar_sesion.php`, {
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    mostrarContenidoPrivado(data.usuario);
+                }
+            });
+        }
+        
+        function mostrarLogin() {
+        	registeruserlogindiv.style.display="block";
+        	menulateral.style.display="none"
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registroForm').classList.add('hidden');
+        }
+        
+        function mostrarRegistro() {
+        	registeruserlogindiv.style.display="block";
+        	menulateral.style.display="none"
+            document.getElementById('registroForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        }
+        
+        function ocultarFormularios() {
+        	registeruserlogindiv.style.display="none";
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registroForm').classList.add('hidden');
+        }
+        
+        function login() {
+            const usuario = document.getElementById('loginUsuario').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            fetch(`${API_URL}/login.php`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({usuario, password}),
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mostrarContenidoPrivado(data.usuario);
+                } else {
+                    document.getElementById('loginError').textContent = data.message;
+                }
+            });
+        }
+        
+        function registrar() {
+            const usuario = document.getElementById('regUsuario').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            
+            fetch(`${API_URL}/registro.php`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({usuario, email, password})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Registro exitoso. Ahora puedes iniciar sesión.');
+                    mostrarLogin();
+                } else {
+                    document.getElementById('regError').textContent = data.message;
+                }
+            });
+        }
+        
+        function mostrarContenidoPrivado(usuario) {
+            document.getElementById('publicContent').classList.add('hidden');
+            document.getElementById('privateContent').classList.remove('hidden');
+            document.getElementById('userInfo').textContent = `Bienvenido, ${usuario}`;
+        }
+        
+        function logout() {
+            fetch(`${API_URL}/logout.php`, {
+                credentials: 'include'
+            })
+            .then(() => {
+                location.reload();
+            });
+        }
+    </script>
+			</center>
+	</div>
+	
+	<div id="registeruserlogindiv" style="display:none;"><center>
+		 <!-- Formulario de Login (oculto inicialmente) -->
+    <div id="loginForm" class="hidden">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="loginUsuario" placeholder="Usuario o Email"><br>
+        <input type="password" id="loginPassword" placeholder="Contraseña"><br>
+        <button onclick="login()">Entrar</button>
+        <button onclick="ocultarFormularios()">Cancelar</button><br>
+        <div id="loginError" style="color: red;"></div>
+    </div>
+    
+    <!-- Formulario de Registro (oculto inicialmente) -->
+    <div id="registroForm" class="hidden">
+        <h2>Registro</h2>
+        <input type="text" id="regUsuario" placeholder="Usuario"><br>
+        <input type="email" id="regEmail" placeholder="Email"><br>
+        <input type="password" id="regPassword" placeholder="Contraseña"><br>
+        <button onclick="registrar()">Registrarse</button>
+        <button onclick="ocultarFormularios()">Cancelar</button><br>
+        <div id="regError" style="color: red;"></div>
+    </div>
+    </center>
+	</div>
 	
 		<ul class="listalinkp">
  <li style="background:#55a;">Inicio</li>
@@ -122,10 +254,10 @@
 						<p>
 							Contador de Dinero:<br>Util para contar su dinero de manera facil.<br>Creado por Yuniel Sánchez<br><a href='https://yunielsanchez309-wq.github.io/YWebAPK/Contador_de_dinero.apk'>Descargar .apk</a>
 						</p>
+						<input type="button" onclick="verpubdown1()" value="Ver mas Publicaciones">
 					</td>
 				</tr>
-				
-				<tr onclick="P10()" id="trp10">
+				<tr onclick="P10()" id="trp10" style="display:none;">
 					<td>
 						<h2>¡Oferta única!</h2>
 						<br><br>
@@ -134,7 +266,7 @@
 						<p id="pinfop10">Para entrar <a href="Contactanos.html">contactanos</a></p>
 					</td>
 				</tr>
-				<tr onclick="P9()" id="trp9">
+				<tr onclick="P9()" id="trp9" style="display:none;">
 					<td>
 						<h2>*Los Ordara 💨 🥵 rompen  este Tema*</h2>
 						<br><br>
@@ -149,7 +281,7 @@
 				</tr>
 				
 				
-				<tr onclick="P8()" id="trp8">
+				<tr onclick="P8()" id="trp8" style="display:none;">
 					<td>
 						<h2>*Ofertas de promoción por ⚜️ separado y completa precios, forma de pago y froma de trabajo del proyecto*
  </h2>
@@ -183,7 +315,7 @@ Aseptamos dolares💵 y euros💶.
 						</p>
 					</td>
 				</tr>
-				<tr onclick="P7()" id="trp7">
+				<tr onclick="P7()" id="trp7" style="display:none;">
 					<td>
 						<h2>
 							*Ofertas de promoción por ⚜️ lista de difusión ⚜️*</h2>
@@ -203,7 +335,7 @@ Trasferencia  💳:2000
 						</p>
 					</td>
 				</tr>
-				<tr onclick="P6()" id="trp6">
+				<tr onclick="P6()" id="trp6" style="display:none;">
 					<td>
 						<h2>Palo, sale pronto ???</h2>
 						<br>
@@ -212,7 +344,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P5()" id="trp5">
+				<tr onclick="P5()" id="trp5" style="display:none;">
 					<td>
 						<h2>Los Ordara 💨 🥵 parten esta joya de tema con sus pasillos</h2>
 						<br>
@@ -221,7 +353,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P4()" id="trp4">
+				<tr onclick="P4()" id="trp4" style="display:none;">
 					<td>
 						<h2>???</h2>
 						<br>
@@ -230,7 +362,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P3()" id="trp3">
+				<tr onclick="P3()" id="trp3" style="display:none;">
 					<td>
 						<h2>Los Ordara</h2>
 						<br>
@@ -239,7 +371,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr onclick="P2()" id="trp2">
+				<tr onclick="P2()" id="trp2" style="display:none;">
 					<td>
 						<h2>Proximo palo que se acerca...</h2>
 						<br>
@@ -248,7 +380,7 @@ Trasferencia  💳:2000
 </video>
 					</td>
 				</tr>
-				<tr id="trp1">
+				<tr id="trp1" style="display:none;">
 					<td>
 						<h2 style="background-image:url('Publicaciones/P1i3.gif'); background-size:100% 100%; height:50px;"><br>Inauguración de nuestra Web Oficial</h2><br>
 						<img src="Publicaciones/P1i1.jpg" style="max-width:96%; border-radius:6px;">
@@ -259,6 +391,15 @@ Trasferencia  💳:2000
 				</tr>
 			</tbody>
 		</table></center>
+   
+    <!-- Contenido para usuarios logueados -->
+    <div id="privateContent" class="hidden">
+        <div id="userInfo"></div>
+    	En desarrollo...
+        <h2>Comentar</h2>
+        <p>Este contenido solo es visible para usuarios registrados.</p>
+        <button onclick="logout()">Cerrar Sesión</button>
+    </div>
 	</div>
 	<img src="Icontitle.jpeg" id="imglogotkopfooter">
 		</center>
