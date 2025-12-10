@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sitio Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Cabecera con estado de autenticación -->
+        <header>
+            <h1>Mi Sitio Web</h1>
+            <div id="auth-status">
+                <p>Cargando...</p>
+            </div>
+            <nav id="nav-menu">
+                <a href="index.html">Inicio</a>
+                <a href="login.html" id="login-link">Iniciar sesión</a>
+                <a href="register.html" id="register-link">Registrarse</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Contenido público -->
+            <section class="hero">
+                <h2>Bienvenido a mi sitio</h2>
+                <p>Contenido público que todos pueden ver</p>
+            </section>
+
+            <!-- Contenido protegido (solo para usuarios logueados) -->
+            <section id="protected-content" style="display:none;">
+                <h2>Contenido exclusivo</h2>
+                <p>¡Hola <span id="user-email"></span>! Este contenido solo es visible para usuarios registrados.</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module">
+        // Actualizar UI según estado de autenticación
+        import { supabase } from './js/supabase-client.js';
+        
+        async function updateUI() {
+            const { data: { user } } = await supabase.auth.getUser();
+            const authStatus = document.getElementById('auth-status');
+            const protectedContent = document.getElementById('protected-content');
+            const loginLink = document.getElementById('login-link');
+            const registerLink = document.getElementById('register-link');
+            const dashboardLink = document.getElementById('dashboard-link');
+            
+            if (user) {
+                // Usuario logueado
+                authStatus.innerHTML = `
+                    <p>Bienvenido, ${user.email}!</p>
+                    <button onclick="logout()" class="btn-secondary">Cerrar sesión</button>
+                `;
+                protectedContent.style.display = 'block';
+                document.getElementById('user-email').textContent = user.email;
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                dashboardLink.style.display = 'inline';
+            } else {
+                // Usuario no logueado
+                authStatus.innerHTML = '<p>No has iniciado sesión</p>';
+                protectedContent.style.display = 'none';
+                loginLink.style.display = 'inline';
+                registerLink.style.display = 'inline';
+                dashboardLink.style.display = 'none';
+            }
+        }
+
+        // Función global para logout
+        window.logout = async () => {
+            const { error } = await supabase.auth.signOut();
+            if (!error) {
+                updateUI();
+                window.location.href = 'index.html';
+            }
+        };
+
+        // Escuchar cambios en autenticación
+        supabase.auth.onAuthStateChange((event, session) => {
+            updateUI();
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', updateUI);
+    </script>
+</body>
+</html>

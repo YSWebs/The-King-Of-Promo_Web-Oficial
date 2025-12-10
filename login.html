@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Iniciar Sesión</h2>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" required placeholder="tu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span>Iniciar sesión</span>
+                    <span class="spinner" style="display:none;">Cargando...</span>
+                </button>
+                
+                <div class="auth-links">
+                    <a href="register.html">¿No tienes cuenta? Regístrate</a>
+                    <a href="index.html">Volver al inicio</a>
+                </div>
+            </form>
+            
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { login } from './js/auth.js';
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            const loginBtn = document.getElementById('loginBtn');
+            const spinner = loginBtn.querySelector('.spinner');
+            
+            // Mostrar loading
+            loginBtn.disabled = true;
+            spinner.style.display = 'inline';
+            messageDiv.textContent = '';
+            messageDiv.className = 'message';
+            
+            // Intentar login
+            const result = await login(email, password);
+            
+            if (result.success) {
+                messageDiv.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+                messageDiv.className = 'message success';
+                
+                // Redirigir después de 1 segundo
+                setTimeout(() => {
+                    const redirectTo = new URLSearchParams(window.location.search).get('redirect') || 'dashboard.html';
+                    window.location.href = redirectTo;
+                }, 1000);
+            } else {
+                messageDiv.textContent = result.error || 'Error al iniciar sesión';
+                messageDiv.className = 'message error';
+                loginBtn.disabled = false;
+                spinner.style.display = 'none';
+            }
+        });
+        
+        // Redirigir si ya está logueado
+        import { supabase } from './js/supabase-client.js';
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            if (user) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Mi Dashboard</h1>
+            <nav>
+                <a href="index.html">Inicio</a>
+                <button onclick="logout()" class="btn-secondary">Cerrar sesión</button>
+            </nav>
+        </header>
+
+        <main>
+            <div id="loading">Cargando información...</div>
+            
+            <div id="user-dashboard" style="display:none;">
+                <section class="user-info">
+                    <h2>Tu información</h2>
+                    <div class="info-card">
+                        <p><strong>Email:</strong> <span id="user-email"></span></p>
+                        <p><strong>ID:</strong> <span id="user-id"></span></p>
+                        <p><strong>Cuenta creada:</strong> <span id="user-created"></span></p>
+                        <p><strong>Último acceso:</strong> <span id="user-last-login"></span></p>
+                    </div>
+                </section>
+                
+                <section class="user-actions">
+                    <h2>Acciones</h2>
+                    <div class="actions-grid">
+                        <button class="action-btn" onclick="showProfile()">
+                            <span>👤</span>
+                            <span>Editar perfil</span>
+                        </button>
+                        <button class="action-btn" onclick="showSettings()">
+                            <span>⚙️</span>
+                            <span>Ajustes</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/supabase-client.js';
+        import { requireAuth } from './js/auth.js';
+        
+        // Proteger esta página
+        requireAuth('login.html');
+        
+        // Cargar información del usuario
+        async function loadUserInfo() {
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if (user) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('user-dashboard').style.display = 'block';
+                
+                document.getElementById('user-email').textContent = user.email;
+                document.getElementById('user-id').textContent = user.id.substring(0, 8) + '...';
+                document.getElementById('user-created').textContent = 
+                    new Date(user.created_at).toLocaleDateString('es-ES');
+                document.getElementById('user-last-login').textContent = 
+                    new Date(user.last_sign_in_at).toLocaleDateString('es-ES');
+            }
+        }
+        
+        // Funciones globales
+        window.logout = async () => {
+            const { error } = await supabase.auth.signOut();
+            if (!error) {
+                window.location.href = 'index.html';
+            }
+        };
+        
+        window.showProfile = () => {
+            alert('Función de editar perfil (por implementar)');
+        };
+        
+        window.showSettings = () => {
+            alert('Función de ajustes (por implementar)');
+        };
+        
+        // Inicializar
+        loadUserInfo();
+    </script>
+</body>
+</html>
