@@ -188,6 +188,7 @@ videotitle.innerHTML="*Oferta*";
 }
 
 function verpubdown1(){
+	botonverpubdown1.style.display="none"
 	trp1.style.display="table"
 	trp2.style.display="table"
 	trp3.style.display="table"
