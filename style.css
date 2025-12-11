@@ -183,6 +183,39 @@ margin-top:5px;
             margin: 20px 0;
         }
 
+.like-button {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.like-button:hover:not(:disabled) {
+    background: #ff3742;
+    transform: scale(1.05);
+}
+
+.like-button:disabled {
+    cursor: not-allowed;
+}
+
+.heart {
+    font-size: 20px;
+}
+
+#like-message {
+    margin-top: 8px;
+    font-size: 14px;
+    min-height: 20px;
+}
+
 #infopagediv{
 	background-color:#444444aa;
 	padding:12px;
