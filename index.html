@@ -11,7 +11,7 @@
 </head>
 <body>
 		<h1 class="h1title">
-			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:block;">
+			<input onclick="openclosemenulat()" class="botonmenu" type="button" style="display:none;">
 		</h1>
 	
 	<div id="menulateral" style="display:none;">
@@ -75,71 +75,6 @@
 	</center></div>
 	
 			<div class="content" id="contentdiv">
-				<div class="like-section">
-    <button id="like-btn" class="like-button">
-        <span class="heart">❤️</span>
-        <span id="like-count">0</span>
-    </button>
-    <p id="like-message"></p>
-</div>
-
-<script>
-				const likeButton = document.getElementById('like-btn');
-const likeCount = document.getElementById('like-count');
-const likeMessage = document.getElementById('like-message');
-
-// URL de tu script PHP en AwardSpace
-const API_URL = 'http://thekingofpromo.atwebpages.com/likes.php';
-
-// Función para actualizar contador
-async function updateLikes() {
-    try {
-        const response = await fetch(`${API_URL}?action=get`);
-        const data = await response.json();
-        likeCount.textContent = data.total;
-        
-        // Si ya dio like, deshabilitar botón
-        if (data.liked) {
-            likeButton.disabled = true;
-            likeButton.style.opacity = '0.7';
-            likeMessage.textContent = '¡Ya diste me gusta!';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// Evento click para dar like
-likeButton.addEventListener('click', async () => {
-    try {
-        const response = await fetch(`${API_URL}?action=like`);
-        const data = await response.json();
-        
-        if (data.liked) {
-            likeCount.textContent = data.total;
-            likeButton.disabled = true;
-            likeButton.style.opacity = '0.7';
-            likeMessage.textContent = '¡Gracias por tu me gusta!';
-            likeMessage.style.color = 'green';
-        } else {
-            likeMessage.textContent = 'Ya habías dado me gusta antes';
-            likeMessage.style.color = 'orange';
-        }
-        
-        // Ocultar mensaje después de 3 segundos
-        setTimeout(() => {
-            likeMessage.textContent = '';
-        }, 3000);
-    } catch (error) {
-        likeMessage.textContent = 'Error al registrar el like';
-        likeMessage.style.color = 'red';
-    }
-});
-
-// Cargar contador al inicio
-updateLikes();
-				</script>
-				
 				<form>
 			<input type="text" id="q" placeholder="Buscar..." onkeyup="search()">
 		</form>
@@ -373,6 +308,16 @@ Trasferencia  💳:2000
 		</center>
 		
 		<footer>
+			<center>
+							<div class="like-section">
+    <button id="like-btn" class="like-button">
+        <span class="heart">❤️</span>
+        <span id="like-count">?</span>
+    </button>
+    <p id="like-message"></p>
+</div>
+			</center>
+			<br>
 		<a href="https://whatsapp.com/channel/0029Vb6hUB82975KwDCYNf1j">
 	<input type="button" class="boyonfootersocial" style="background-image:url('whatsApp icon.png'); border-bottom-left-radius:3px;">
 </a>
@@ -440,6 +385,63 @@ Trasferencia  💳:2000
             document.getElementById('registerMessage').textContent = '';
         }
     </script>
+	
+<script>
+				const likeButton = document.getElementById('like-btn');
+const likeCount = document.getElementById('like-count');
+const likeMessage = document.getElementById('like-message');
+
+// URL de tu script PHP en AwardSpace
+const API_URL = 'http://thekingofpromo.atwebpages.com/likes.php';
+
+// Función para actualizar contador
+async function updateLikes() {
+    try {
+        const response = await fetch(`${API_URL}?action=get`);
+        const data = await response.json();
+        likeCount.textContent = data.total;
+        
+        // Si ya dio like, deshabilitar botón
+        if (data.liked) {
+            likeButton.disabled = true;
+            likeButton.style.opacity = '0.7';
+            likeMessage.textContent = '¡Ya diste me gusta!';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Evento click para dar like
+likeButton.addEventListener('click', async () => {
+    try {
+        const response = await fetch(`${API_URL}?action=like`);
+        const data = await response.json();
+        
+        if (data.liked) {
+            likeCount.textContent = data.total;
+            likeButton.disabled = true;
+            likeButton.style.opacity = '0.7';
+            likeMessage.textContent = '¡Gracias por tu me gusta!';
+            likeMessage.style.color = 'green';
+        } else {
+            likeMessage.textContent = 'Ya habías dado me gusta antes';
+            likeMessage.style.color = 'orange';
+        }
+        
+        // Ocultar mensaje después de 3 segundos
+        setTimeout(() => {
+            likeMessage.textContent = '';
+        }, 3000);
+    } catch (error) {
+        likeMessage.textContent = 'Error al registrar el like';
+        likeMessage.style.color = 'red';
+    }
+});
+
+// Cargar contador al inicio
+updateLikes();
+				</script>
 	<script src="scriptbotontopscroll.js"></script>
 	<script src="scriptloadedtr.js"></script>
 </body>
