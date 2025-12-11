@@ -26,46 +26,86 @@
     <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
     <p><a href="index.html">Volver al inicio</a></p>
 
-    <script>
-        // REEMPLAZA CON TU URL DE INFINITYFREE
-        const API_URL = 'https://thekingofpromooficial.infinityfree.me/';
+
+<script>
+    // IMPORTANTE: Cambia esta URL por tu dominio real de InfinityFree
+    const API_URL = 'https://thekingofpromooficial.infinityfree.me/registro.php';
+    
+    document.getElementById('registroForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        document.getElementById('registroForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const message = document.getElementById('message');
+        
+        // Limpiar mensaje anterior
+        message.textContent = '';
+        message.className = '';
+        
+        // Validación básica
+        if (password.length < 6) {
+            message.textContent = 'La contraseña debe tener al menos 6 caracteres';
+            message.className = 'error';
+            return;
+        }
+        
+        try {
+            console.log('Enviando datos a:', API_URL);
+            console.log('Datos:', { nombre, email, password });
             
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const message = document.getElementById('message');
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    nombre: nombre, 
+                    email: email, 
+                    password: password 
+                })
+            });
             
-            try {
-                const response = await fetch(API_URL + 'registro.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ nombre, email, password })
-                });
+            console.log('Respuesta recibida, status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log('Datos recibidos:', data);
+            
+            if (data.success) {
+                message.textContent = data.message;
+                message.className = 'success';
                 
-                const data = await response.json();
-                
-                if (data.success) {
-                    message.textContent = data.message + ' Redirigiendo...';
-                    message.className = 'success';
-                    
-                    // Redirigir al login después de 2 segundos
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
-                } else {
-                    message.textContent = data.message;
-                    message.className = 'error';
-                }
-            } catch (error) {
-                message.textContent = 'Error de conexión: ' + error.message;
+                // Redirigir después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } else {
+                message.textContent = data.message;
                 message.className = 'error';
             }
-        });
-    </script>
+            
+        } catch (error) {
+            console.error('Error completo:', error);
+            message.textContent = 'Error de conexión: ' + error.message;
+            message.className = 'error';
+            
+            // Mostrar ayuda adicional
+            const ayuda = document.createElement('p');
+            ayuda.innerHTML = `
+                <small>Posibles soluciones:<br>
+                1. Verifica que la URL de la API sea correcta<br>
+                2. Asegúrate de que los archivos PHP están en InfinityFree<br>
+                3. Revisa la consola del navegador (F12) para más detalles
+                </small>
+            `;
+            message.appendChild(ayuda);
+        }
+    });
+</script>
 </body>
 </html>
