@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificar Configuración Supabase</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        .warning { color: orange; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; }
+        .step { margin: 20px 0; padding: 15px; border-left: 4px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Verificación de Configuración Supabase</h1>
+    
+    <div class="step">
+        <h2>Paso 1: Configuración de Supabase</h2>
+        <div id="config-status">Verificando...</div>
+    </div>
+    
+    <div class="step">
+        <h2>Paso 2: Conexión a Supabase</h2>
+        <div id="connection-status">Verificando...</div>
+    </div>
+    
+    <div class="step">
+        <h2>Paso 3: Configuración de Autenticación</h2>
+        <div id="auth-status">Verificando...</div>
+    </div>
+    
+    <div class="step">
+        <h2>Paso 4: Problemas comunes y soluciones</h2>
+        <ul>
+            <li><strong>Error CORS:</strong> Agrega tu dominio en Supabase → Authentication → URL Configuration</li>
+            <li><strong>Credenciales incorrectas:</strong> Verifica Project URL y API Key en supabase-client.js</li>
+            <li><strong>Email no verificado:</strong> Desactiva temporalmente la verificación en Supabase → Authentication → Providers → Email</li>
+        </ul>
+    </div>
+    
+    <div class="step">
+        <h2>Tu configuración actual:</h2>
+        <pre id="current-config">Cargando...</pre>

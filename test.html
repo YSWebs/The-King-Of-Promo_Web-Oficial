@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test de Conexión</title>
+</head>
+<body>
+    <h1>Test de Conexión a Supabase</h1>
+    <div id="status">Probando conexión...</div>
+    
+    <script type="module">
+        import { CONFIG, checkConfig } from './js/config.js';
+        import { supabase, testConnection } from './js/supabase-client.js';
+        
+        async function runTests() {
+            const status = document.getElementById('status');
+            
+            // Test 1: Configuración
+            status.innerHTML += '<br>1. Verificando configuración...';
+            if (!checkConfig()) {
+                status.innerHTML += '<br><span style="color:red">❌ Configuración incorrecta</span>';
+                status.innerHTML += `<br>URL: ${CONFIG.supabase.url}`;
+                status.innerHTML += `<br>Key: ${CONFIG.supabase.anonKey ? '✓ Presente' : '✗ Faltante'}`;
+                return;
+            }
+            status.innerHTML += '<br><span style="color:green">✓ Configuración OK</span>';
+            
+            // Test 2: Conexión a Supabase
+            status.innerHTML += '<br>2. Conectando a Supabase...';
+            const connected = await testConnection();
+            if (!connected) {
+                status.innerHTML += '<br><span style="color:red">❌ Error de conexión</span>';
+                return;
+            }
+            status.innerHTML += '<br><span style="color:green">✓ Conexión exitosa</span>';
+            
+            // Test 3: Autenticación disponible
+            status.innerHTML += '<br>3. Verificando autenticación...';
+            const { data, error } = await supabase.auth.getSession();
+            if (error) {
+                status.innerHTML += `<br><span style="color:red">❌ Error de auth: ${error.message}</span>`;
+            } else {
+                status.innerHTML += '<br><span style="color:green">✓ Autenticación disponible</span>';
+            }
+            
+            status.innerHTML += '<br><br><strong>✅ ¡Todo listo! 🚀</strong>';
+        }
+        
+        runTests();
+    </script>
+</body>
+</html>
