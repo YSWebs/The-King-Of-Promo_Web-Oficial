@@ -1,43 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Registro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sitio Web</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .container { background: #f5f5f5; padding: 20px; border-radius: 10px; }
+        .hidden { display: none; }
+        .user-info { background: #4CAF50; color: white; padding: 10px; border-radius: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
 </head>
 <body>
-    <div id="registro-form">
-        <h2>Registro</h2>
-        <input type="text" id="nombre" placeholder="Nombre">
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="registrar()">Registrarse</button>
-        <p id="mensaje"></p>
-        <a href="login.html">¿Ya tienes cuenta? Inicia sesión</a>
+    <div class="container">
+        <h1>Bienvenido a Mi Sitio</h1>
+        
+        <div id="guest-view">
+            <p>Por favor inicia sesión o regístrate.</p>
+            <button onclick="window.location.href='login.html'">Iniciar Sesión</button>
+            <button onclick="window.location.href='registro.html'">Registrarse</button>
+        </div>
+        
+        <div id="user-view" class="hidden">
+            <div class="user-info">
+                <h2>Bienvenido, <span id="user-name"></span>!</h2>
+                <p>Email: <span id="user-email"></span></p>
+                <button onclick="logout()">Cerrar Sesión</button>
+            </div>
+            <!-- Tu contenido para usuarios registrados aquí -->
+        </div>
     </div>
 
     <script>
-        const API_URL = 'https://thekingofpromooficial.infinityfree.me/';
-        
-        async function registrar() {
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            const response = await fetch(API_URL + 'registro.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({nombre, email, password})
-            });
-            
-            const data = await response.json();
-            document.getElementById('mensaje').textContent = data.message;
-            
-            if (data.success) {
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
+        // Verificar si hay usuario logueado al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                showUserView(user);
             }
+        });
+
+        function showUserView(user) {
+            document.getElementById('guest-view').classList.add('hidden');
+            document.getElementById('user-view').classList.remove('hidden');
+            document.getElementById('user-name').textContent = user.nombre;
+            document.getElementById('user-email').textContent = user.email;
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            location.reload();
         }
     </script>
 </body>

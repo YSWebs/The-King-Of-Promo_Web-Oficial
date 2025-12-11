@@ -3,61 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Registro</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
         input { width: 100%; padding: 10px; margin: 10px 0; }
-        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
         .error { color: red; }
         .success { color: green; }
     </style>
 </head>
 <body>
-    <h2>Iniciar Sesión</h2>
+    <h2>Registro de Usuario</h2>
     
-    <form id="loginForm">
+    <form id="registroForm">
+        <input type="text" id="nombre" placeholder="Nombre completo" required>
         <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Contraseña" required>
-        <button type="submit">Iniciar Sesión</button>
+        <input type="password" id="password" placeholder="Contraseña (mínimo 6 caracteres)" minlength="6" required>
+        <button type="submit">Registrarse</button>
     </form>
     
     <p id="message"></p>
-    <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
     <p><a href="index.html">Volver al inicio</a></p>
 
     <script>
         // REEMPLAZA CON TU URL DE INFINITYFREE
         const API_URL = 'https://thekingofpromooficial.infinityfree.me/';
         
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        document.getElementById('registroForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const message = document.getElementById('message');
             
             try {
-                const response = await fetch(API_URL + 'login.php', {
+                const response = await fetch(API_URL + 'registro.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ nombre, email, password })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    message.textContent = data.message;
+                    message.textContent = data.message + ' Redirigiendo...';
                     message.className = 'success';
                     
-                    // Guardar usuario en localStorage
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Redirigir después de 1 segundo
+                    // Redirigir al login después de 2 segundos
                     setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1000);
+                        window.location.href = 'login.html';
+                    }, 2000);
                 } else {
                     message.textContent = data.message;
                     message.className = 'error';
