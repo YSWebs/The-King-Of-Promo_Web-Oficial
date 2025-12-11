@@ -1,24 +1,69 @@
-// Importar Supabase desde CDN
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+// supabase-client.js - Cliente de Supabase
 
-// Obtener configuración desde variables de entorno o configuración directa
-const supabaseUrl = 'https://evklgqirlnfiooxwdwdl.supabase.co'
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2a2xncWlybG5maW9veHdkd2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODE3OTcsImV4cCI6MjA4MDk1Nzc5N30.59A5Y_h8uUcil8m6GFjX2fjPJpHuuvlie8_Pes8OlVs'
+// Importar configuración
+import { CONFIG } from './config.js';
 
-// Crear y exportar el cliente Supabase
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Crear cliente Supabase
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-// Función para verificar conexión
+// Verificar configuración antes de crear el cliente
+if (!CONFIG.supabase.url || !CONFIG.supabase.anonKey) {
+    console.error('ERROR: Configuración de Supabase incompleta');
+}
+
+// Crear y exportar el cliente
+export const supabase = createClient(CONFIG.supabase.url, CONFIG.supabase.anonKey, {
+    auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+    }
+});
+
+// Función para probar la conexión
 export async function testConnection() {
     try {
-        const { data, error } = await supabase.from('_dummy').select('*').limit(1)
-        if (error && error.code === 'PGRST116') {
-            console.log('✅ Conexión a Supabase exitosa')
-            return true
+        const { data, error } = await supabase.auth.getSession();
+        
+        if (error) {
+            console.error('❌ Error de conexión a Supabase:', error.message);
+            
+            // Mostrar error en la página si hay un elemento #connection-error
+            const errorElement = document.getElementById('connection-error');
+            if (errorElement) {
+                errorElement.innerHTML = `
+                    <div style="background: #fee; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        <strong>Error de conexión:</strong><br>
+                        ${error.message}<br><br>
+                        <small>Verifica tus credenciales en js/config.js</small>
+                    </div>
+                `;
+            }
+            
+            return false;
         }
-        return false
+        
+        console.log('✅ Conexión a Supabase exitosa');
+        return true;
     } catch (error) {
-        console.error('❌ Error conectando a Supabase:', error)
-        return false
+        console.error('❌ Error inesperado:', error);
+        return false;
     }
 }
+
+// Función para obtener sesión actual
+export async function getCurrentSession() {
+    try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        return session;
+    } catch (error) {
+        console.error('Error obteniendo sesión:', error);
+        return null;
+    }
+}
+
+// Inicializar conexión cuando se carga el módulo
+document.addEventListener('DOMContentLoaded', () => {
+    testConnection();
+});
