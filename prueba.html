@@ -4,91 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Sitio Web</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div id="app">
-        <!-- Cabecera con estado de autenticación -->
-        <header>
-            <h1>Mi Sitio Web</h1>
-            <div id="auth-status">
-                <p>Cargando...</p>
-            </div>
-            <nav id="nav-menu">
-                <a href="index.html">Inicio</a>
-                <a href="login.html" id="login-link">Iniciar sesión</a>
-                <a href="register.html" id="register-link">Registrarse</a>
-                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            </nav>
-        </header>
-
-        <main>
-            <!-- Contenido público -->
-            <section class="hero">
-                <h2>Bienvenido a mi sitio</h2>
-                <p>Contenido público que todos pueden ver</p>
-            </section>
-
-            <!-- Contenido protegido (solo para usuarios logueados) -->
-            <section id="protected-content" style="display:none;">
-                <h2>Contenido exclusivo</h2>
-                <p>¡Hola <span id="user-email"></span>! Este contenido solo es visible para usuarios registrados.</p>
-            </section>
-        </main>
-    </div>
-
-    <!-- Scripts -->
-    <script type="module" src="js/supabase-client.js"></script>
-    <script type="module" src="js/auth.js"></script>
-    <script type="module">
-        // Actualizar UI según estado de autenticación
-        import { supabase } from './js/supabase-client.js';
+    <style>
+        .visit-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s ease;
+        }
         
-        async function updateUI() {
-            const { data: { user } } = await supabase.auth.getUser();
-            const authStatus = document.getElementById('auth-status');
-            const protectedContent = document.getElementById('protected-content');
-            const loginLink = document.getElementById('login-link');
-            const registerLink = document.getElementById('register-link');
-            const dashboardLink = document.getElementById('dashboard-link');
-            
-            if (user) {
-                // Usuario logueado
-                authStatus.innerHTML = `
-                    <p>Bienvenido, ${user.email}!</p>
-                    <button onclick="logout()" class="btn-secondary">Cerrar sesión</button>
-                `;
-                protectedContent.style.display = 'block';
-                document.getElementById('user-email').textContent = user.email;
-                loginLink.style.display = 'none';
-                registerLink.style.display = 'none';
-                dashboardLink.style.display = 'inline';
-            } else {
-                // Usuario no logueado
-                authStatus.innerHTML = '<p>No has iniciado sesión</p>';
-                protectedContent.style.display = 'none';
-                loginLink.style.display = 'inline';
-                registerLink.style.display = 'inline';
-                dashboardLink.style.display = 'none';
+        .visit-counter:hover {
+            transform: translateY(-2px);
+        }
+        
+        .counter-icon {
+            font-size: 16px;
+        }
+        
+        .counter-number {
+            font-weight: bold;
+            font-size: 15px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .visit-counter {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 13px;
             }
         }
+    </style>
+</head>
+<body>
+    <!-- Tu contenido aquí -->
+    
+    <div class="visit-counter">
+        <span class="counter-icon">👁️</span>
+        <span>Visitas:</span>
+        <span class="counter-number" id="visitas">0</span>
+    </div>
 
-        // Función global para logout
-        window.logout = async () => {
-            const { error } = await supabase.auth.signOut();
-            if (!error) {
-                updateUI();
-                window.location.href = 'index.html';
-            }
-        };
-
-        // Escuchar cambios en autenticación
-        supabase.auth.onAuthStateChange((event, session) => {
-            updateUI();
+    <script>
+        // Configuración
+        const INFINITYFREE_URL = 'https://thekingofpromooficial.infinityfree.me/counter.php';
+        
+        // Inicializar contador
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCounter();
         });
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', updateUI);
+        
+        async function updateCounter() {
+            const counterElement = document.getElementById('visitas');
+            if (!counterElement) return;
+            
+            try {
+                // Verificar si ya contamos en esta sesión
+                const sessionKey = 'visitCounted_' + window.location.hostname;
+                const now = Date.now();
+                const lastCountTime = sessionStorage.getItem(sessionKey);
+                
+                let url = INFINITYFREE_URL;
+                
+                // Si ya contamos en los últimos 30 minutos, solo leer
+                if (lastCountTime && (now - parseInt(lastCountTime)) < 30 * 60 * 1000) {
+                    url += '?mode=readonly';
+                }
+                
+                // Añadir timestamp para evitar caché
+                url += (url.includes('?') ? '&' : '?') + '_=' + Date.now();
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta');
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Actualizar display
+                    counterElement.textContent = data.total.toLocaleString();
+                    
+                    // Si fue un incremento, marcar sesión
+                    if (data.mode === 'increment') {
+                        sessionStorage.setItem(sessionKey, now.toString());
+                    }
+                    
+                    // Respaldo en localStorage
+                    localStorage.setItem('lastCounterValue', data.total);
+                    localStorage.setItem('lastCounterUpdate', now);
+                }
+                
+            } catch (error) {
+                console.warn('Contador remoto no disponible, usando respaldo local');
+                
+                // Respaldo con localStorage
+                let localCount = localStorage.getItem('localVisitCount') || 0;
+                localCount = parseInt(localCount);
+                
+                if (!sessionStorage.getItem('visitCounted')) {
+                    localCount++;
+                    localStorage.setItem('localVisitCount', localCount);
+                    sessionStorage.setItem('visitCounted', 'true');
+                }
+                
+                counterElement.textContent = localCount.toLocaleString();
+            }
+        }
+        
+        // Opcional: Actualizar contador periódicamente (cada 5 minutos)
+        setInterval(updateCounter, 5 * 60 * 1000);
     </script>
 </body>
 </html>

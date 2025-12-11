@@ -309,13 +309,13 @@ Trasferencia  💳:2000
 		
 		<footer>
 			<center>
-							<div class="like-section" style="display:none;">
+							<div class="like-section">
     <div id="like-btn" class="like-button">
         <span class="heart">❤️</span>
         <span id="like-count">?</span>
     </div>
 </div>
-							<div class="like-section" style="display:none;">
+							<div class="like-section">
     <div id="visitas-btn" class="visitas-button" style="background: #57aaaa;">
         <span class="heart">👁</span>
         <span id="visitas">?</span>
@@ -398,7 +398,7 @@ const likeCount = document.getElementById('like-count');
 const likeMessage = document.getElementById('like-message');
 
 // URL de tu script PHP en AwardSpace
-const API_URL = 'http://thekingofpromo.atwebpages.com/likes.php';
+const API_URL = 'https://thekingofpromooficial.infinityfree.me/likes.php';
 
 // Función para actualizar contador
 async function updateLikes() {
@@ -450,38 +450,105 @@ updateLikes();
 	
 				</script>
 	  <script>
-        // URL de tu archivo PHP en AwardSpace
-        const AWARDSPACE_URL = 'http://thekingofpromo.atwebpages.com/count.php';
-        
-        // Intentar usar localStorage para evitar recuentos múltiples
-        const sessionKey = 'visitCounted';
-        
-        async function updateCounter() {
-            try {
-                const response = await fetch(AWARDSPACE_URL);
-                const data = await response.json();
-                
-                document.getElementById('visitas').textContent = data.total;
-                
-                // Marcar que ya contamos esta visita
-                sessionStorage.setItem(sessionKey, 'true');
-            } catch (error) {
-                console.error('Error al cargar contador:', error);
-                document.getElementById('visitas').textContent = 'Error';
+        // counter.js para GitHub Pages
+class InfinityFreeCounter {
+    constructor(config = {}) {
+        this.config = {
+            apiUrl: 'https://thekingofpromooficial.infinityfree.me/counter.php',
+            counterElement: 'visitas',
+            storageKey: 'visitCounted',
+            sessionTimeout: 30 * 60 * 1000, // 30 minutos
+            ...config
+        };
+        this.init();
+    }
+    
+    async init() {
+        try {
+            const now = Date.now();
+            const lastCount = sessionStorage.getItem(this.config.storageKey);
+            
+            if (lastCount && (now - parseInt(lastCount)) < this.config.sessionTimeout) {
+                // Ya contamos recientemente - modo lectura
+                await this.fetchCounter('readonly');
+            } else {
+                // Nueva visita - incrementar
+                await this.fetchCounter('increment');
+                sessionStorage.setItem(this.config.storageKey, now.toString());
             }
+        } catch (error) {
+            console.warn('Error con contador remoto, usando localStorage:', error);
+            this.useLocalFallback();
+        }
+    }
+    
+    async fetchCounter(mode = 'increment') {
+        try {
+            const url = `${this.config.apiUrl}?mode=${mode}&_=${Date.now()}`;
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.updateDisplay(data.total);
+                
+                // Guardar en localStorage como respaldo
+                localStorage.setItem('lastKnownCount', data.total);
+                localStorage.setItem('lastUpdate', Date.now());
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    useLocalFallback() {
+        // Usar localStorage como respaldo
+        let localCount = localStorage.getItem('localVisitCount') || 0;
+        localCount = parseInt(localCount);
+        
+        if (!sessionStorage.getItem(this.config.storageKey)) {
+            localCount++;
+            localStorage.setItem('localVisitCount', localCount);
+            sessionStorage.setItem(this.config.storageKey, Date.now().toString());
         }
         
-        // Solo contar si es la primera vez en esta sesión
-        if (!sessionStorage.getItem(sessionKey)) {
-            updateCounter();
-        } else {
-            // Solo mostrar el último valor sin incrementar
-            fetch(AWARDSPACE_URL + '?readonly=true')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('visitas').textContent = data.total;
-                });
+        this.updateDisplay(localCount);
+    }
+    
+    updateDisplay(count) {
+        const element = document.getElementById(this.config.counterElement);
+        if (element) {
+            // Formato con separadores de miles
+            element.textContent = count.toLocaleString();
+            
+            // Animación opcional
+            element.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 300);
         }
+    }
+}
+
+// Uso en tu página HTML
+document.addEventListener('DOMContentLoaded', function() {
+    new InfinityFreeCounter({
+        apiUrl: 'https://thekingofpromooficial.infinityfree.me/counter.php', // Tu URL de InfinityFree
+        counterElement: 'visitas' // ID del elemento donde mostrar
+    });
+});
     </script>
 	<script src="scriptbotontopscroll.js"></script>
 	<script src="scriptloadedtr.js"></script>
