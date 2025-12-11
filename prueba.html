@@ -1,83 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mi Página con Likes y Visitas</title>
-    <style>
-        .counter {
-            margin: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        .like-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .like-btn:hover {
-            background: #ff3742;
-        }
-        .like-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-    </style>
+    <title>Registro</title>
 </head>
 <body>
-    <div class="counter">
-        <h3>📊 Estadísticas</h3>
-        <p>Visitas totales: <span id="visitas">Cargando...</span></p>
-        <p>Likes: <span id="likes">0</span></p>
-        <button class="like-btn" id="likeBtn" onclick="darLike()">❤️ Dar Like</button>
+    <div id="registro-form">
+        <h2>Registro</h2>
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="registrar()">Registrarse</button>
+        <p id="mensaje"></p>
+        <a href="login.html">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
 
     <script>
-        // Configuración
-        const USER = 'yswebs.github.io';
-        const REPO = 'The-King-Of-Promo_Web-Oficial';
+        const API_URL = 'https://thekingofpromooficial.infinityfree.me/';
         
-        // Cargar contador de visitas
-        fetch(`https://api.countapi.xyz/hit/${USER}/${REPO}`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('visitas').textContent = data.value;
-            });
-        
-        // Cargar contador de likes
-        fetch(`https://api.countapi.xyz/get/${USER}/${REPO}-likes`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('likes').textContent = data.value;
-            });
-        
-        // Función para dar like
-        function darLike() {
-            const btn = document.getElementById('likeBtn');
-            if (localStorage.getItem('yaDioLike')) {
-                alert('¡Ya diste like!');
-                btn.disabled = true;
-                return;
-            }
+        async function registrar() {
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             
-            fetch(`https://api.countapi.xyz/update/${USER}/${REPO}-likes/?amount=1`)
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('likes').textContent = data.value;
-                    localStorage.setItem('yaDioLike', 'true');
-                    btn.disabled = true;
-                    btn.textContent = '👍 ¡Gracias!';
-                });
-        }
-        
-        // Verificar si ya dio like
-        if (localStorage.getItem('yaDioLike')) {
-            document.getElementById('likeBtn').disabled = true;
-            document.getElementById('likeBtn').textContent = '👍 Ya diste like';
+            const response = await fetch(API_URL + 'registro.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({nombre, email, password})
+            });
+            
+            const data = await response.json();
+            document.getElementById('mensaje').textContent = data.message;
+            
+            if (data.success) {
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
         }
     </script>
 </body>
