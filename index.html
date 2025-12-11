@@ -310,12 +310,18 @@ Trasferencia  💳:2000
 		<footer>
 			<center>
 							<div class="like-section">
-    <button id="like-btn" class="like-button">
+    <div id="like-btn" class="like-button">
         <span class="heart">❤️</span>
         <span id="like-count">?</span>
-    </button>
-    <p id="like-message"></p>
+    </div>
 </div>
+							<div class="like-section">
+    <div id="visitas-btn" class="visitas-button" style="background: #57aaaa;">
+        <span class="heart">👁</span>
+        <span id="visitas">?</span>
+    </div>
+</div>
+    <p id="like-message"></p>
 			</center>
 			<br>
 		<a href="https://whatsapp.com/channel/0029Vb6hUB82975KwDCYNf1j">
@@ -441,7 +447,42 @@ likeButton.addEventListener('click', async () => {
 
 // Cargar contador al inicio
 updateLikes();
+	
 				</script>
+	  <script>
+        // URL de tu archivo PHP en AwardSpace
+        const AWARDSPACE_URL = 'http://thekingofpromo.atwebpages.com/count.php';
+        
+        // Intentar usar localStorage para evitar recuentos múltiples
+        const sessionKey = 'visitCounted';
+        
+        async function updateCounter() {
+            try {
+                const response = await fetch(AWARDSPACE_URL);
+                const data = await response.json();
+                
+                document.getElementById('visitas').textContent = data.total;
+                
+                // Marcar que ya contamos esta visita
+                sessionStorage.setItem(sessionKey, 'true');
+            } catch (error) {
+                console.error('Error al cargar contador:', error);
+                document.getElementById('visitas').textContent = 'Error';
+            }
+        }
+        
+        // Solo contar si es la primera vez en esta sesión
+        if (!sessionStorage.getItem(sessionKey)) {
+            updateCounter();
+        } else {
+            // Solo mostrar el último valor sin incrementar
+            fetch(AWARDSPACE_URL + '?readonly=true')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('visitas').textContent = data.total;
+                });
+        }
+    </script>
 	<script src="scriptbotontopscroll.js"></script>
 	<script src="scriptloadedtr.js"></script>
 </body>
